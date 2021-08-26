@@ -867,7 +867,7 @@ def update_graph(n_intervals):
                 html.Tr([
                     html.Th('#'),
                     html.Th('Crypto Currency'),
-                    html.Th('Price'),
+                    html.Th('Price     '),
                     html.Th('Change (24)'),
                     html.Th('Market Cap.')
                 ], className = 'header_hover')
