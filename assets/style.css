@@ -7,14 +7,53 @@ body {
 .create_container {
   border-radius: 0px;
   background: rgb(255, 255, 255);
-  margin-top: 10px;
+  margin-top: 20px;
   padding: 15px;
   height: 120px;
   margin-left: 37px;
   box-shadow: 2px 2px 16px 2px lightgrey;
 }
 
+.create_container2 {
+  margin-top:20px;
+  padding: 15px;
+  height: 470px;
+}
+
+.second_row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.table_width {
+  border-radius: 0px;
+  background: rgb(255, 255, 255);
+  width: 730px;
+  margin-left: 37px;
+  box-shadow: 2px 2px 16px 2px lightgrey;
+}
+
+.chart_width {
+  border-radius: 0px;
+  background: rgb(255, 255, 255);
+  width: 730px;
+  margin-left: 15px;
+  box-shadow: 2px 2px 16px 2px lightgrey;
+}
+
 .create_container:hover {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 0px 0px lightgrey;
+}
+
+.table_width:hover {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 0px 0px lightgrey;
+}
+
+.chart_width:hover {
   background-color: rgb(255, 255, 255);
   box-shadow: 0px 0px 0px 0px lightgrey;
 }
@@ -59,15 +98,6 @@ body {
     gap: 1px;
     position: fixed;
     white-space: pre;
-}
-
-.create_container2 {
-  border: 1px solid #cccccc;
-  border-radius: 5px;
-  align-items: center;
-  margin:10px;
-  padding: 15px;
-  position: relative;
 }
 
 .table_style {

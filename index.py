@@ -16,42 +16,46 @@ app = dash.Dash(__name__, external_stylesheets = external_stylesheets)
 app.layout = html.Div([
     html.Div([
         dcc.Interval(id = 'update_value',
-                     interval = 3000,
+                     interval = 5000,
                      n_intervals = 0),
     ]),
 
     html.Div([
         html.Div([
-        html.Div([
-            html.Div(id = 'text_row1'),
-            html.Div(id = 'text_row2', className = 'text_row2'),
+            html.Div([
+                html.Div(id = 'text_row1'),
+                html.Div(id = 'text_row2', className = 'text_row2'),
 
-        ], className = 'create_container three columns'),
-        html.Div([
-            html.Div(id = 'text_row3'),
-            html.Div(id = 'text_row4', className = 'text_row2'),
+            ], className = 'create_container three columns'),
+            html.Div([
+                html.Div(id = 'text_row3'),
+                html.Div(id = 'text_row4', className = 'text_row2'),
 
-        ], className = 'create_container three columns'),
+            ], className = 'create_container three columns'),
 
-        html.Div([
-            html.Div(id = 'text_row5'),
-            html.Div(id = 'text_row6', className = 'text_row2'),
+            html.Div([
+                html.Div(id = 'text_row5'),
+                html.Div(id = 'text_row6', className = 'text_row2'),
 
-        ], className = 'create_container three columns'),
+            ], className = 'create_container three columns'),
 
-        html.Div([
-            html.Div(id = 'text_row7'),
-            html.Div(id = 'text_row8', className = 'text_row2'),
+            html.Div([
+                html.Div(id = 'text_row7'),
+                html.Div(id = 'text_row8', className = 'text_row2'),
 
-        ], className = 'create_container three columns'),
+            ], className = 'create_container three columns'),
         ], className = 'container_gap twelve columns')
 
     ], className = "row flex-display"),
+
     html.Div([
         html.Div([
-            html.Div(id = 'table_data')
-
-        ], className = 'create_container2 six columns')
+            html.Div(id = 'table_data', className = 'table_width'),
+            dcc.Graph(id = 'bitcoin_chart',
+                      animate = True,
+                      config = {'displayModeBar': 'hover'},
+                      className = 'chart_width'),
+        ], className = 'second_row twelve columns')
     ], className = "row flex-display")
 
 ], id= "mainContainer",
@@ -1120,6 +1124,98 @@ def update_graph(n_intervals):
             ])
         ], className = 'table_style'),
     ]
+
+@app.callback(Output('bitcoin_chart', 'figure'),
+              [Input('update_value', 'n_intervals')])
+def update_graph(n_intervals):
+    header_list = ['Time', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
+    bitcoin_df = pd.read_csv('bitcoin_data.csv', names = header_list)
+    bitcoin_price = bitcoin_df['Price'].tail(20)
+    time_interval = bitcoin_df['Time'].tail(20)
+    if n_intervals == 0:
+        raise PreventUpdate
+
+    return {
+        'data': [go.Scatter(
+            x = time_interval,
+            y = bitcoin_price,
+            mode = 'lines',
+            line = dict(width = 2, color = '#D35400'),
+            # marker = dict(size = 7, symbol = 'circle', color = '#D35400',
+            #               line = dict(color = '#D35400', width = 2)
+            #               ),
+
+            hoverinfo = 'text',
+            hovertext =
+            '<b>Time</b>: ' + time_interval.astype(str) + '<br>' +
+            '<b>Bitcoin Price</b>: ' + [f'${x:,.2f}' for x in bitcoin_price] + '<br>'
+
+        )],
+
+        'layout': go.Layout(
+            # paper_bgcolor = 'rgba(0,0,0,0)',
+            # plot_bgcolor = 'rgba(0,0,0,0)',
+            plot_bgcolor = 'rgba(255, 255, 255, 0.0)',
+            paper_bgcolor = 'rgba(255, 255, 255, 0.0)',
+            title = {
+                'text': '',
+
+                'y': 0.97,
+                'x': 0.5,
+                'xanchor': 'center',
+                'yanchor': 'top'},
+            titlefont = {
+                'color': 'black',
+                'size': 17},
+
+            hovermode = 'closest',
+            margin = dict(t = 25, r = 0, l = 40),
+
+            xaxis = dict(range = [min(time_interval), max(time_interval)],
+                         title = '<b>Time</b>',
+                         color = 'black',
+                         showline = True,
+                         showgrid = False,
+                         linecolor = 'black',
+                         linewidth = 1,
+                         ticks = 'outside',
+                         tickfont = dict(
+                             family = 'Arial',
+                             size = 12,
+                             color = 'black')
+
+                         ),
+
+            yaxis = dict(range = [min(bitcoin_price) - 1, max(bitcoin_price) + 1],
+                         title = '<b>Bitcoin Price</b>',
+                         color = 'black',
+                         showline = True,
+                         showgrid = True,
+                         linecolor = 'black',
+                         linewidth = 1,
+                         ticks = 'outside',
+                         tickfont = dict(
+                             family = 'Arial',
+                             size = 12,
+                             color = 'black')
+
+                         ),
+
+            legend = {
+                'orientation': 'h',
+                'bgcolor': '#F2F2F2',
+                'x': 0.5,
+                'y': 1.25,
+                'xanchor': 'center',
+                'yanchor': 'top'},
+            font = dict(
+                family = "sans-serif",
+                size = 12,
+                color = 'black')
+
+        )
+
+            }
 
 if __name__ == "__main__":
     app.run_server(debug = True)

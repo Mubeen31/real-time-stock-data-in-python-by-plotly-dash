@@ -572,7 +572,29 @@ there.
     gap: 10px !important;
   }
 
+  .second_row {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+}
+
+.table_width {
+  width: 475px !important;
+  margin-left: 0px !important;
+  margin-right: 15px !important;
+}
+
+.chart_width {
+  width: 475px !important;
+  margin-left: 0px !important;
+  margin-right: 15px !important;
+}
+
   .create_container {
+    margin-left: 0px !important;
+}
+
+ .create_container2 {
     margin-left: 0px !important;
 }
     .adjust_title {
