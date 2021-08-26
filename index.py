@@ -47,6 +47,12 @@ app.layout = html.Div([
         ], className = 'container_gap twelve columns')
 
     ], className = "row flex-display"),
+    html.Div([
+        html.Div([
+            html.Div(id = 'table_data')
+
+        ], className = 'create_container2 six columns')
+    ], className = "row flex-display")
 
 ], id= "mainContainer",
    style={"display": "flex", "flex-direction": "column"})
@@ -840,6 +846,82 @@ def update_graph(n_intervals):
                 ], className = 'adjust_price_row2')
 
             ]
+
+@app.callback(Output('table_data', 'children'),
+              [Input('update_value', 'n_intervals')])
+def update_graph(n_intervals):
+    header_list = ['Time', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.', 'price_difference']
+    chainlink_df = pd.read_csv('chainlink_data.csv', names = header_list)
+    chainlink_price = chainlink_df['Price'].tail(1).iloc[0]
+    change_24h = chainlink_df['Change (24h) %'].tail(1).iloc[0]
+    market_cap = chainlink_df['Market Cap.'].tail(1).iloc[0]
+    chainlink_df['price_difference'] = chainlink_df['Price'].diff()
+    price_difference = chainlink_df['price_difference'].tail(1).iloc[0]
+    if n_intervals == 0:
+        raise PreventUpdate
+
+    return [
+
+        html.Table([
+            html.Thead(
+                html.Tr([
+                    html.Th('#'),
+                    html.Th('Crypto Currency'),
+                    html.Th('Price'),
+                    html.Th('Change (24)'),
+                    html.Th('Market Cap.')
+                ], className = 'header_hover')
+            ),
+            html.Tbody([
+                html.Tr([
+                    html.Td('1'),
+                    html.Td(html.Div([
+                        html.Img(src = app.get_asset_url('bitcoin.png'),
+                                 style = {'height': '30px'},
+                                 className = 'image'),
+                        html.P('Chainlink', className = 'logo_text')
+                    ], className = 'logo_image'),
+                    ),
+                    html.Td(html.Div([
+                        html.H6('${0:,.2f}'.format(chainlink_price),
+                                style = {'textAlign': 'left',
+                                         'color': '#00cc00',
+                                         'margin-top': '-8px',
+                                         'fontSize': 12,
+                                         'font-weight': 'bold'
+                                         }
+                                ),
+                        html.I(className = "fas fa-arrow-up",
+                               style = {"font-size": "80%",
+                                        'margin-top': '-5px',
+                                        'color': '#00cc00'}),
+
+                    ], className = 'adjust_image'),
+                    ),
+                    html.Td(
+                        html.Div([
+                            html.H6('{0:,.2f}%'.format(change_24h),
+                                    style = {'textAlign': 'left',
+                                             'color': 'black',
+                                             'margin-top': '10px',
+                                             'fontSize': 12,
+                                             }
+                                    ),
+
+                        ]),
+                    ),
+                    html.Td(
+                        html.P('${0:,.0f}'.format(market_cap),
+                               style = {'textAlign': 'left',
+                                        'color': 'black',
+                                        'fontSize': 12,
+                                        'margin-top': '10px',
+                                        }),
+                    ),
+                ], className = 'hover_only_row'),
+            ])
+        ], className = 'table_style'),
+    ]
 
 
 if __name__ == "__main__":

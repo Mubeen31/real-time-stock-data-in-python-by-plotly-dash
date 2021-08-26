@@ -11,11 +11,12 @@ body {
   padding: 15px;
   height: 120px;
   margin-left: 37px;
+  box-shadow: 2px 2px 16px 2px lightgrey;
 }
 
 .create_container:hover {
   background-color: rgb(255, 255, 255);
-  box-shadow: 2px 2px 16px 2px lightgrey;
+  box-shadow: 0px 0px 0px 0px lightgrey;
 }
 
 
@@ -58,6 +59,62 @@ body {
     gap: 1px;
     position: fixed;
     white-space: pre;
+}
+
+.create_container2 {
+  border: 1px solid #cccccc;
+  border-radius: 5px;
+  align-items: center;
+  margin:10px;
+  padding: 15px;
+  position: relative;
+}
+
+.table_style {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.table_style Thead, .table_style Th, .table_style Td {
+   border: 1px solid #dddd;
+   padding: 7px;
+}
+
+.table_style Thead {
+  padding-top: 11px;
+  padding-bottom: 11px;
+  text-align: left;
+  background-color: #006fe6;
+  color: white;
+}
+
+.hover_only_row:nth-child(even){
+   background-color: white;
+}
+
+.header_hover:hover {
+   background-color: #9038D5;
+   color: white;
+}
+
+.hover_only_row:hover {
+   background-color: #dddd;
+}
+
+.image {
+  margin-top: -12px;
+}
+
+.logo_text {
+  margin-top: -10px;
+  margin-left: -13px;
+}
+
+.logo_image {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  position: fixed;
 }
 
 .adjust_title {

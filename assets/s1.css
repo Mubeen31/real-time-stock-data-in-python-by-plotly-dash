@@ -610,6 +610,11 @@ there.
     margin-left: 0px !important;
 }
 
+.image {
+  margin-top: -12px !important;
+}
+
+
   .container-display {
     display: flex;
   }
@@ -629,7 +634,7 @@ there.
     font-size: 1.75rem;
   }
   p {
-    font-size: 11px;
+    font-size: 15px;
   }
 }
 
