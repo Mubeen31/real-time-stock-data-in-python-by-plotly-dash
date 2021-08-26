@@ -850,13 +850,36 @@ def update_graph(n_intervals):
 @app.callback(Output('table_data', 'children'),
               [Input('update_value', 'n_intervals')])
 def update_graph(n_intervals):
-    header_list = ['Time', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.', 'price_difference']
+    header_list = ['Time', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
     chainlink_df = pd.read_csv('chainlink_data.csv', names = header_list)
     chainlink_price = chainlink_df['Price'].tail(1).iloc[0]
-    change_24h = chainlink_df['Change (24h) %'].tail(1).iloc[0]
-    market_cap = chainlink_df['Market Cap.'].tail(1).iloc[0]
-    chainlink_df['price_difference'] = chainlink_df['Price'].diff()
-    price_difference = chainlink_df['price_difference'].tail(1).iloc[0]
+    chainlink_change_24h = chainlink_df['Change (24h) %'].tail(1).iloc[0]
+    chainlink_market_cap = chainlink_df['Market Cap.'].tail(1).iloc[0]
+
+    header_list = ['Time', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
+    bitcoin_df = pd.read_csv('bitcoin_data.csv', names = header_list)
+    bitcoin_price = bitcoin_df['Price'].tail(1).iloc[0]
+    bitcoin_change_24h = bitcoin_df['Change (24h) %'].tail(1).iloc[0]
+    bitcoin_market_cap = bitcoin_df['Market Cap.'].tail(1).iloc[0]
+
+    header_list = ['Time', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
+    ethereum_df = pd.read_csv('ethereum_data.csv', names = header_list)
+    ethereum_price = ethereum_df['Price'].tail(1).iloc[0]
+    ethereum_change_24h = ethereum_df['Change (24h) %'].tail(1).iloc[0]
+    ethereum_market_cap = ethereum_df['Market Cap.'].tail(1).iloc[0]
+
+    header_list = ['Time', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
+    binancecoin_df = pd.read_csv('binance_data.csv', names = header_list)
+    binancecoin_price = binancecoin_df['Price'].tail(1).iloc[0]
+    binancecoin_change_24h = binancecoin_df['Change (24h) %'].tail(1).iloc[0]
+    binancecoin_market_cap = binancecoin_df['Market Cap.'].tail(1).iloc[0]
+
+    header_list = ['Time', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
+    bitcoincash_df = pd.read_csv('bitcoincash_data.csv', names = header_list)
+    bitcoincash_price = bitcoincash_df['Price'].tail(1).iloc[0]
+    bitcoincash_change_24h = bitcoincash_df['Change (24h) %'].tail(1).iloc[0]
+    bitcoincash_market_cap = bitcoincash_df['Market Cap.'].tail(1).iloc[0]
+
     if n_intervals == 0:
         raise PreventUpdate
 
@@ -865,53 +888,228 @@ def update_graph(n_intervals):
         html.Table([
             html.Thead(
                 html.Tr([
-                    html.Th('#'),
-                    html.Th('Crypto Currency'),
-                    html.Th('Price     '),
-                    html.Th('Change (24)'),
-                    html.Th('Market Cap.')
+                    html.Th('#', style = {'width': '30px'}),
+                    html.Th('Crypto Currency', style = {'width': '120px'},
+                                               className = 'crypto_column'),
+                    html.Th('Price', style = {'width': '120px'}),
+                    html.Th('Change (24)', style = {'width': '90px'}),
+                    html.Th('Market Cap.', style = {'width': '150px'})
                 ], className = 'header_hover')
             ),
             html.Tbody([
                 html.Tr([
-                    html.Td('1'),
+                    html.Td(html.P('1', style = {'textAlign': 'left',
+                                                 'color': 'black',
+                                                 'fontSize': 12,
+                                                 'margin-top': '10px',
+                                                 }),
+                            ),
                     html.Td(html.Div([
-                        html.Img(src = app.get_asset_url('bitcoin.png'),
+                        html.Img(src = app.get_asset_url('chainlink.png'),
                                  style = {'height': '30px'},
                                  className = 'image'),
-                        html.P('Chainlink', className = 'logo_text')
+                        html.P('Chainlink', style = {'margin-left': '-12px'},
+                                            className = 'logo_text'
+                               )
                     ], className = 'logo_image'),
                     ),
-                    html.Td(html.Div([
+                    html.Td(
                         html.H6('${0:,.2f}'.format(chainlink_price),
                                 style = {'textAlign': 'left',
-                                         'color': '#00cc00',
-                                         'margin-top': '-8px',
+                                         'color': 'black',
+                                         'margin-top': '10px',
                                          'fontSize': 12,
-                                         'font-weight': 'bold'
                                          }
                                 ),
-                        html.I(className = "fas fa-arrow-up",
-                               style = {"font-size": "80%",
-                                        'margin-top': '-5px',
-                                        'color': '#00cc00'}),
 
-                    ], className = 'adjust_image'),
                     ),
                     html.Td(
-                        html.Div([
-                            html.H6('{0:,.2f}%'.format(change_24h),
+                            html.H6('{0:,.2f}%'.format(chainlink_change_24h),
                                     style = {'textAlign': 'left',
                                              'color': 'black',
                                              'margin-top': '10px',
                                              'fontSize': 12,
                                              }
                                     ),
-
-                        ]),
                     ),
                     html.Td(
-                        html.P('${0:,.0f}'.format(market_cap),
+                        html.P('${0:,.0f}'.format(chainlink_market_cap),
+                               style = {'textAlign': 'left',
+                                        'color': 'black',
+                                        'fontSize': 12,
+                                        'margin-top': '10px',
+                                        }),
+                    ),
+                ], className = 'hover_only_row'),
+
+                html.Tr([
+                    html.Td(html.P('2', style = {'textAlign': 'left',
+                                                 'color': 'black',
+                                                 'fontSize': 12,
+                                                 'margin-top': '10px',
+                                                 }),
+                            ),
+                    html.Td(html.Div([
+                        html.Img(src = app.get_asset_url('bitcoin.png'),
+                                 style = {'height': '30px'},
+                                 className = 'image'),
+                        html.P('Bitcoin', style = {'margin-left': '-3px'},
+                                          className = 'logo_text')
+                    ], className = 'logo_image'),
+                    ),
+                    html.Td(
+                        html.H6('${0:,.2f}'.format(bitcoin_price),
+                                style = {'textAlign': 'left',
+                                         'color': 'black',
+                                         'margin-top': '10px',
+                                         'fontSize': 12,
+                                         }
+                                ),
+
+                    ),
+                    html.Td(
+                        html.H6('{0:,.2f}%'.format(bitcoin_change_24h),
+                                style = {'textAlign': 'left',
+                                         'color': 'black',
+                                         'margin-top': '10px',
+                                         'fontSize': 12,
+                                         }
+                                ),
+                    ),
+                    html.Td(
+                        html.P('${0:,.0f}'.format(bitcoin_market_cap),
+                               style = {'textAlign': 'left',
+                                        'color': 'black',
+                                        'fontSize': 12,
+                                        'margin-top': '10px',
+                                        }),
+                    ),
+                ], className = 'hover_only_row'),
+
+                html.Tr([
+                    html.Td(html.P('3', style = {'textAlign': 'left',
+                                                 'color': 'black',
+                                                 'fontSize': 12,
+                                                 'margin-top': '10px',
+                                                 }),
+                            ),
+                    html.Td(html.Div([
+                        html.Img(src = app.get_asset_url('ethereum.png'),
+                                 style = {'height': '30px'},
+                                 className = 'image'),
+                        html.P('Ethereum', style = {'margin-left': '-15px'},
+                               className = 'logo_text')
+                    ], className = 'logo_image'),
+                    ),
+                    html.Td(
+                        html.H6('${0:,.2f}'.format(ethereum_price),
+                                style = {'textAlign': 'left',
+                                         'color': 'black',
+                                         'margin-top': '10px',
+                                         'fontSize': 12,
+                                         }
+                                ),
+
+                    ),
+                    html.Td(
+                        html.H6('{0:,.2f}%'.format(ethereum_change_24h),
+                                style = {'textAlign': 'left',
+                                         'color': 'black',
+                                         'margin-top': '10px',
+                                         'fontSize': 12,
+                                         }
+                                ),
+                    ),
+                    html.Td(
+                        html.P('${0:,.0f}'.format(ethereum_market_cap),
+                               style = {'textAlign': 'left',
+                                        'color': 'black',
+                                        'fontSize': 12,
+                                        'margin-top': '10px',
+                                        }),
+                    ),
+                ], className = 'hover_only_row'),
+
+                html.Tr([
+                    html.Td(html.P('4', style = {'textAlign': 'left',
+                                                 'color': 'black',
+                                                 'fontSize': 12,
+                                                 'margin-top': '10px',
+                                                 }),
+                            ),
+                    html.Td(html.Div([
+                        html.Img(src = app.get_asset_url('binance.png'),
+                                 style = {'height': '30px'},
+                                 className = 'image'),
+                        html.P('Binance Coin', style = {'margin-left': '-25px'},
+                               className = 'logo_text')
+                    ], className = 'logo_image'),
+                    ),
+                    html.Td(
+                        html.H6('${0:,.2f}'.format(binancecoin_price),
+                                style = {'textAlign': 'left',
+                                         'color': 'black',
+                                         'margin-top': '10px',
+                                         'fontSize': 12,
+                                         }
+                                ),
+
+                    ),
+                    html.Td(
+                        html.H6('{0:,.2f}%'.format(binancecoin_change_24h),
+                                style = {'textAlign': 'left',
+                                         'color': 'black',
+                                         'margin-top': '10px',
+                                         'fontSize': 12,
+                                         }
+                                ),
+                    ),
+                    html.Td(
+                        html.P('${0:,.0f}'.format(binancecoin_market_cap),
+                               style = {'textAlign': 'left',
+                                        'color': 'black',
+                                        'fontSize': 12,
+                                        'margin-top': '10px',
+                                        }),
+                    ),
+                ], className = 'hover_only_row'),
+
+                html.Tr([
+                    html.Td(html.P('5', style = {'textAlign': 'left',
+                                                 'color': 'black',
+                                                 'fontSize': 12,
+                                                 'margin-top': '10px',
+                                                 }),
+                            ),
+                    html.Td(html.Div([
+                        html.Img(src = app.get_asset_url('bitcoincash.png'),
+                                 style = {'height': '30px'},
+                                 className = 'image'),
+                        html.P('Bitcoin Cash', style = {'margin-left': '-23px'},
+                               className = 'logo_text')
+                    ], className = 'logo_image'),
+                    ),
+                    html.Td(
+                        html.H6('${0:,.2f}'.format(bitcoincash_price),
+                                style = {'textAlign': 'left',
+                                         'color': 'black',
+                                         'margin-top': '10px',
+                                         'fontSize': 12,
+                                         }
+                                ),
+
+                    ),
+                    html.Td(
+                        html.H6('{0:,.2f}%'.format(bitcoincash_change_24h),
+                                style = {'textAlign': 'left',
+                                         'color': 'black',
+                                         'margin-top': '10px',
+                                         'fontSize': 12,
+                                         }
+                                ),
+                    ),
+                    html.Td(
+                        html.P('${0:,.0f}'.format(bitcoincash_market_cap),
                                style = {'textAlign': 'left',
                                         'color': 'black',
                                         'fontSize': 12,
@@ -922,7 +1120,6 @@ def update_graph(n_intervals):
             ])
         ], className = 'table_style'),
     ]
-
 
 if __name__ == "__main__":
     app.run_server(debug = True)

@@ -614,6 +614,10 @@ there.
   margin-top: -12px !important;
 }
 
+.crypto_column {
+  width: 310px !important;
+}
+
 
   .container-display {
     display: flex;
