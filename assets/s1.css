@@ -561,6 +561,16 @@ there.
     display: block !important;
   }
 
+  .title {
+   margin-left: -195px !important;
+   margin-top: 10px !important;
+}
+
+.adjust_date_time {
+   text-align: center !important;
+   margin-top: -25px;
+}
+
   .margin_left_value {
     margin-left: 90px !important;
     margin-top: -4px !important;
@@ -601,35 +611,8 @@ there.
     margin-left: 0px !important;
 }
 
-    .heading_title {
-    margin-left: 152px !important;
-}
-
-  .grid_two_column {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    margin-left: 15px !important;
-    margin-right: 15px !important;
-}
-
-  .grid_height {
-    width: 400px !important;
-}
-
-  .paragraph_value_humi {
-    margin-right: 82px !important;
-}
-
-  .paragraph_value_temp {
-    margin-right: 82px !important;
-}
-
-  .change_paragraph_value_humi {
-    margin-left: 0px !important;
-}
-
-  .change_paragraph_value_temp {
-    margin-left: 0px !important;
+.margin_left_value {
+  margin-left: 100px !important;
 }
 
 .image {
@@ -639,8 +622,6 @@ there.
 .crypto_column {
   width: 310px !important;
 }
-
-
   .container-display {
     display: flex;
   }

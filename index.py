@@ -15,6 +15,28 @@ app = dash.Dash(__name__, external_stylesheets = external_stylesheets)
 
 app.layout = html.Div([
     html.Div([
+        html.Div([
+            html.Img(src = app.get_asset_url('financial-profit.png'),
+                     style = {'height': '30px'},
+                     ),
+            html.H6('Real time Crypto currency data',
+                    style = {'color': 'black'},
+                    className = 'title'
+                    ),
+        ], className = 'logo_title'),
+        html.Div([
+            html.H6(id = 'get_date_time',
+                    style = {'color': 'black'},
+                    )
+        ], className = 'adjust_date_time twelve columns')
+    ], className = "row flex-display"),
+    html.Div([
+        dcc.Interval(id = 'update_date_time',
+                     interval = 1000,
+                     n_intervals = 0),
+    ]),
+
+    html.Div([
         dcc.Interval(id = 'update_value',
                      interval = 5000,
                      n_intervals = 0),
@@ -60,6 +82,19 @@ app.layout = html.Div([
 
 ], id= "mainContainer",
    style={"display": "flex", "flex-direction": "column"})
+
+@app.callback(Output('get_date_time', 'children'),
+              [Input('update_date_time', 'n_intervals')])
+def update_graph(n_intervals):
+    now = datetime.now()
+    dt_string = now.strftime("%Y-%m-%d %H:%M:%S")
+    if n_intervals == 0:
+        raise PreventUpdate
+
+    return [
+        html.Div(dt_string),
+    ]
+
 
 @app.callback(Output('text_row1', 'children'),
               [Input('update_value', 'n_intervals')])
@@ -196,7 +231,7 @@ def update_graph(n_intervals):
                                         'color': '#00cc00'}),
 
                     ], className = 'adjust_image_row2'),
-                    html.P('Market Cap:' + '${0:,.0f}'.format(market_cap),
+                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                            style = {'textAlign': 'left',
                                     'color': '#808080',
                                     'fontSize': 12,
@@ -224,7 +259,7 @@ def update_graph(n_intervals):
                                         'color': '#EC1E3D'}),
 
                     ], className = 'adjust_image_row2'),
-                    html.P('Market Cap:' + '${0:,.0f}'.format(market_cap),
+                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                            style = {'textAlign': 'left',
                                     'color': '#808080',
                                     'fontSize': 12,
@@ -248,7 +283,7 @@ def update_graph(n_intervals):
                                 ),
 
                     ], className = 'adjust_image_row2'),
-                    html.P('Market Cap:' + '${0:,.0f}'.format(market_cap),
+                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                            style = {'textAlign': 'left',
                                     'color': '#808080',
                                     'fontSize': 12,
@@ -394,7 +429,7 @@ def update_graph(n_intervals):
                                         'color': '#00cc00'}),
 
                     ], className = 'adjust_image_row2'),
-                    html.P('Market Cap:' + '${0:,.0f}'.format(market_cap),
+                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                            style = {'textAlign': 'left',
                                     'color': '#808080',
                                     'fontSize': 12,
@@ -422,7 +457,7 @@ def update_graph(n_intervals):
                                         'color': '#EC1E3D'}),
 
                     ], className = 'adjust_image_row2'),
-                    html.P('Market Cap:' + '${0:,.0f}'.format(market_cap),
+                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                            style = {'textAlign': 'left',
                                     'color': '#808080',
                                     'fontSize': 12,
@@ -446,7 +481,7 @@ def update_graph(n_intervals):
                                 ),
 
                     ], className = 'adjust_image_row2'),
-                    html.P('Market Cap:' + '${0:,.0f}'.format(market_cap),
+                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                            style = {'textAlign': 'left',
                                     'color': '#808080',
                                     'fontSize': 12,
@@ -591,7 +626,7 @@ def update_graph(n_intervals):
                                         'color': '#00cc00'}),
 
                     ], className = 'adjust_image_row2'),
-                    html.P('Market Cap:' + '${0:,.0f}'.format(market_cap),
+                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                            style = {'textAlign': 'left',
                                     'color': '#808080',
                                     'fontSize': 12,
@@ -619,7 +654,7 @@ def update_graph(n_intervals):
                                         'color': '#EC1E3D'}),
 
                     ], className = 'adjust_image_row2'),
-                    html.P('Market Cap:' + '${0:,.0f}'.format(market_cap),
+                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                            style = {'textAlign': 'left',
                                     'color': '#808080',
                                     'fontSize': 12,
@@ -643,7 +678,7 @@ def update_graph(n_intervals):
                                 ),
 
                     ], className = 'adjust_image_row2'),
-                    html.P('Market Cap:' + '${0:,.0f}'.format(market_cap),
+                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                            style = {'textAlign': 'left',
                                     'color': '#808080',
                                     'fontSize': 12,
@@ -788,7 +823,7 @@ def update_graph(n_intervals):
                                         'color': '#00cc00'}),
 
                     ], className = 'adjust_image_row2'),
-                    html.P('Market Cap:' + '${0:,.0f}'.format(market_cap),
+                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                            style = {'textAlign': 'left',
                                     'color': '#808080',
                                     'fontSize': 12,
@@ -816,7 +851,7 @@ def update_graph(n_intervals):
                                         'color': '#EC1E3D'}),
 
                     ], className = 'adjust_image_row2'),
-                    html.P('Market Cap:' + '${0:,.0f}'.format(market_cap),
+                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                            style = {'textAlign': 'left',
                                     'color': '#808080',
                                     'fontSize': 12,
@@ -840,7 +875,7 @@ def update_graph(n_intervals):
                                 ),
 
                     ], className = 'adjust_image_row2'),
-                    html.P('Market Cap:' + '${0:,.0f}'.format(market_cap),
+                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                            style = {'textAlign': 'left',
                                     'color': '#808080',
                                     'fontSize': 12,
@@ -1130,8 +1165,8 @@ def update_graph(n_intervals):
 def update_graph(n_intervals):
     header_list = ['Time', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
     bitcoin_df = pd.read_csv('bitcoin_data.csv', names = header_list)
-    bitcoin_price = bitcoin_df['Price'].tail(20)
-    time_interval = bitcoin_df['Time'].tail(20)
+    bitcoin_price = bitcoin_df['Price'].tail(30)
+    time_interval = bitcoin_df['Time'].tail(30)
     if n_intervals == 0:
         raise PreventUpdate
 
@@ -1140,7 +1175,7 @@ def update_graph(n_intervals):
             x = time_interval,
             y = bitcoin_price,
             mode = 'lines',
-            line = dict(width = 2, color = '#D35400'),
+            line = dict(width = 2, color = '#EC1E3D '),
             # marker = dict(size = 7, symbol = 'circle', color = '#D35400',
             #               line = dict(color = '#D35400', width = 2)
             #               ),
@@ -1158,7 +1193,7 @@ def update_graph(n_intervals):
             plot_bgcolor = 'rgba(255, 255, 255, 0.0)',
             paper_bgcolor = 'rgba(255, 255, 255, 0.0)',
             title = {
-                'text': '',
+                'text': 'Bitcoin Price',
 
                 'y': 0.97,
                 'x': 0.5,
@@ -1168,12 +1203,13 @@ def update_graph(n_intervals):
                 'color': 'black',
                 'size': 17},
 
-            hovermode = 'closest',
-            margin = dict(t = 25, r = 0, l = 40),
+            hovermode = 'x unified',
+            margin = dict(t = 25, r = 10, l = 70),
 
             xaxis = dict(range = [min(time_interval), max(time_interval)],
                          title = '<b>Time</b>',
                          color = 'black',
+                         showspikes=True,
                          showline = True,
                          showgrid = False,
                          linecolor = 'black',
@@ -1186,9 +1222,10 @@ def update_graph(n_intervals):
 
                          ),
 
-            yaxis = dict(range = [min(bitcoin_price) - 1, max(bitcoin_price) + 1],
-                         title = '<b>Bitcoin Price</b>',
+            yaxis = dict(
+                         title = '<b></b>',
                          color = 'black',
+                         showspikes=False,
                          showline = True,
                          showgrid = True,
                          linecolor = 'black',
