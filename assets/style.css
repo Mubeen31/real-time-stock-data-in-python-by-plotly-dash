@@ -55,6 +55,14 @@ body {
   box-shadow: 2px 2px 16px 2px lightgrey;
 }
 
+/*.table_width {
+  border-radius: 0px;
+  background: rgb(255, 255, 255);
+  width: 852px;
+  margin-left: 37px;
+  box-shadow: 2px 2px 16px 2px lightgrey;
+}*/
+
 .chart_width {
   border-radius: 0px;
   background: rgb(255, 255, 255);
@@ -62,6 +70,14 @@ body {
   margin-left: 15px;
   box-shadow: 2px 2px 16px 2px lightgrey;
 }
+
+/*.chart_width {
+  border-radius: 0px;
+  background: rgb(255, 255, 255);
+  width: 845px;
+  margin-left: -2px;
+  box-shadow: 2px 2px 16px 2px lightgrey;
+}*/
 
 .create_container:hover {
   background-color: rgb(255, 255, 255);
