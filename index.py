@@ -158,7 +158,7 @@ def update_graph(n_intervals):
                     html.Div([
                         html.H6('{0:,.2f}'.format(bitcoin_price),
                                 style = {
-                                    'color': '#00cc00',
+                                    'color': '#EC1E3D',
                                     'font-weight': 'bold'
                                 }, className = 'coin_price'
                                 ),
@@ -351,7 +351,7 @@ def update_graph(n_intervals):
                     html.Div([
                         html.H6('{0:,.2f}'.format(ethereum_price),
                                 style = {
-                                    'color': '#00cc00',
+                                    'color': '#EC1E3D',
                                     'font-weight': 'bold'
                                 }, className = 'coin_price'
                                 ),
@@ -543,7 +543,7 @@ def update_graph(n_intervals):
                     html.Div([
                         html.H6('{0:,.2f}'.format(binance_price),
                                 style = {
-                                    'color': '#00cc00',
+                                    'color': '#EC1E3D',
                                     'font-weight': 'bold'
                                 }, className = 'coin_price'
                                 ),
@@ -735,7 +735,7 @@ def update_graph(n_intervals):
                     html.Div([
                         html.H6('{0:,.2f}'.format(bitcoincash_price),
                                 style = {
-                                    'color': '#00cc00',
+                                    'color': '#EC1E3D',
                                     'font-weight': 'bold'
                                 }, className = 'coin_price'
                                 ),
