@@ -61,7 +61,7 @@ while i == 1:
     binance_price = binance_row['Price'][4]
     binance_change = binance_row['Change (24h) %'][4]
     binance_market_cap = binance_row['Market Cap.'][4]
-    print(df[0].head(30))
+    # print(df[0].head(30))
 
     bitcoincash_row = df[0].loc[[13]]
     bitcoincash_currency = bitcoincash_row['CryptoCurrency'][13]
