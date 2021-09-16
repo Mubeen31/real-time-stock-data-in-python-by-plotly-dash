@@ -120,6 +120,7 @@ body {
 .price_indicator {
   display: flex;
   flex-direction: row;
+  margin-top: 14px;
 }
 
 .right_price_value {

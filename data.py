@@ -56,17 +56,18 @@ while i == 1:
     ethereum_change = ethereum_row['Change (24h) %'][1]
     ethereum_market_cap = ethereum_row['Market Cap.'][1]
 
-    binance_row = df[0].loc[[3]]
-    binance_currency = binance_row['CryptoCurrency'][3]
-    binance_price = binance_row['Price'][3]
-    binance_change = binance_row['Change (24h) %'][3]
-    binance_market_cap = binance_row['Market Cap.'][3]
+    binance_row = df[0].loc[[4]]
+    binance_currency = binance_row['CryptoCurrency'][4]
+    binance_price = binance_row['Price'][4]
+    binance_change = binance_row['Change (24h) %'][4]
+    binance_market_cap = binance_row['Market Cap.'][4]
+    print(df[0].head(30))
 
-    bitcoincash_row = df[0].loc[[10]]
-    bitcoincash_currency = bitcoincash_row['CryptoCurrency'][10]
-    bitcoincash_price = bitcoincash_row['Price'][10]
-    bitcoincash_change = bitcoincash_row['Change (24h) %'][10]
-    bitcoincash_market_cap = bitcoincash_row['Market Cap.'][10]
+    bitcoincash_row = df[0].loc[[13]]
+    bitcoincash_currency = bitcoincash_row['CryptoCurrency'][13]
+    bitcoincash_price = bitcoincash_row['Price'][13]
+    bitcoincash_change = bitcoincash_row['Change (24h) %'][13]
+    bitcoincash_market_cap = bitcoincash_row['Market Cap.'][13]
     # print(df[0].head(30))
 
     chainlink_row = df[0].loc[[12]]
