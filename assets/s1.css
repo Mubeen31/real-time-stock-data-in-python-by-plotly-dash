@@ -557,66 +557,34 @@ there.
 /* Larger than tablet, for screens smaller than 768px */
 @media (max-width: 550px) {
 
-  .flex-display {
-    display: block !important;
-  }
-
-  .title {
-   margin-left: -195px !important;
-   margin-top: 10px !important;
+.adjust_first_card {
+  width: 220px !important;
 }
 
-.adjust_date_time {
-   text-align: center !important;
-   margin-top: -25px;
+.adjust_second_card {
+  width: 220px !important;
 }
 
-  .margin_left_value {
-    margin-left: 90px !important;
-    margin-top: -4px !important;
-  }
-
-  .container_gap {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr !important;
-    gap: 10px !important;
-  }
-
-  .second_row {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 20px !important;
+.adjust_third_card {
+  width: 220px !important;
 }
 
-.table_width {
-  width: 475px !important;
-  margin-left: 0px !important;
-  margin-right: 15px !important;
+.adjust_fourth_card {
+  width: 220px !important;
+}
+
+.flexbox_container {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  margin-left: 9px;
 }
 
 .chart_width {
-  width: 475px !important;
-  margin-left: 0px !important;
-  margin-right: 15px !important;
+  width: 470px !important;
 }
 
-  .create_container {
-    margin-left: 0px !important;
-}
-
- .create_container2 {
-    margin-left: 0px !important;
-}
-    .adjust_title {
-    margin-left: 0px !important;
-}
-
-.margin_left_value {
-  margin-left: 100px !important;
-}
-
-.image {
-  margin-top: -12px !important;
+.table_width {
+  width: 470px !important;
 }
 
 .crypto_column {
@@ -625,11 +593,6 @@ there.
   .container-display {
     display: flex;
   }
-
-
-  .font_size {
-   font-size: 13px !important;
-}
 
   h3 {
     font-size: 2.5rem;

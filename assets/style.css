@@ -1,85 +1,257 @@
 body {
-    margin-right: 5px;
-    margin-left: 5px;
+    margin: 0;
 
+}
+
+.title_image {
+   display: flex;
+   flex-direction: row;
+   margin-top: 2px;
 }
 
 .title {
    white-space: pre;
-   margin-left: -70px;
-   margin-top: 6px;
+   display: flex;
+   flex-direction: row;
 }
 
 .logo_title {
-   display: grid;
-   grid-template-columns: 1fr 1fr;
-   gap: 1px;
-   padding: 10px;
-   margin-top: -10px;
-   position: relative;
+   display: flex;
+   flex-direction: row;
+   gap: 5px;
+   margin-left: 5px;
+   margin-top: 3px;
+   flex: 6;
 }
 
 .adjust_date_time {
-   text-align: center;
-   margin-right: 70px;
+   display: flex;
+   flex-direction: row;
+   margin-top: 11px;
+   flex:1;
+   white-space: pre;
+   margin-right: 10px;
 }
 
-.create_container {
+.title_date_time_container {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #006fe6;
+}
+
+.adjust_first_card {
+  width: 340px;
   border-radius: 0px;
   background: rgb(255, 255, 255);
-  margin-top: 20px;
-  padding: 15px;
-  height: 120px;
-  margin-left: 37px;
+  height: 115px;
   box-shadow: 2px 2px 16px 2px lightgrey;
 }
 
-.create_container2 {
-  margin-top:20px;
-  padding: 15px;
-  height: 470px;
+.first_card_column {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
 }
 
-.second_row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 20px;
+.adjust_second_card {
+  width: 340px;
+  border-radius: 0px;
+  background: rgb(255, 255, 255);
+  height: 115px;
+  box-shadow: 2px 2px 16px 2px lightgrey;
+}
+
+.second_card_column {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.adjust_third_card {
+  width: 340px;
+  border-radius: 0px;
+  background: rgb(255, 255, 255);
+  height: 115px;
+  box-shadow: 2px 2px 16px 2px lightgrey;
+}
+
+.third_card_column {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.adjust_fourth_card {
+  width: 340px;
+  border-radius: 0px;
+  background: rgb(255, 255, 255);
+  height: 115px;
+  box-shadow: 2px 2px 16px 2px lightgrey;
+}
+
+.fourth_card_column {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.flexbox_container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.adjust_margin {
+   margin-top: 20px;
+}
+
+.coin_name {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+
+.coin_price {
+  display: flex;
+  flex-direction: row;
+}
+
+.price_indicator {
+  display: flex;
+  flex-direction: row;
+}
+
+.right_price_value {
+  display: flex;
+  flex-direction: row;
+  margin-top: 14px;
+}
+
+.adjust_price_and_coin {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+}
+
+.adjust_price_indicator_right {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  margin-top: -12px;
+}
+
+.adjust_price_no_right {
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  margin-top: -12px;
+}
+
+.coin_price_column {
+  display: flex;
+  flex-direction: column;
+}
+
+.price_difference {
+  display: flex;
+  flex-direction: row;
+}
+
+.difference_indicator {
+  display: flex;
+  flex-direction: row;
+  margin-top: 11px;
+}
+
+.difference_row {
+  display: flex;
+  flex-direction: row;
+  gap:2px;
+}
+
+.cap_right_value {
+  display: flex;
+  flex-direction: row;
+  margin-top: 8px;
+}
+
+.diff_row_cap {
+  display: flex;
+  flex-direction: row;
+  gap:10px;
+  margin-top: -16px;
+}
+
+.zero_price_difference {
+  display: flex;
+  flex-direction: row;
+}
+
+.zero_diff_row_cap {
+  display: flex;
+  flex-direction: row;
+  gap:10px;
+}
+
+.image {
+  display: flex;
+  flex-direction: row;
+}
+
+.logo_text {
+  display: flex;
+  flex-direction: row;
+  margin-top: 5px;
+}
+
+.logo_image {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
 }
 
 .table_width {
   border-radius: 0px;
   background: rgb(255, 255, 255);
-  width: 730px;
-  margin-left: 37px;
+  width: 700px;
   box-shadow: 2px 2px 16px 2px lightgrey;
 }
-
-/*.table_width {
-  border-radius: 0px;
-  background: rgb(255, 255, 255);
-  width: 852px;
-  margin-left: 37px;
-  box-shadow: 2px 2px 16px 2px lightgrey;
-}*/
 
 .chart_width {
   border-radius: 0px;
   background: rgb(255, 255, 255);
-  width: 730px;
-  margin-left: 15px;
+  width: 700px;
   box-shadow: 2px 2px 16px 2px lightgrey;
 }
 
-/*.chart_width {
-  border-radius: 0px;
-  background: rgb(255, 255, 255);
-  width: 845px;
-  margin-left: -2px;
-  box-shadow: 2px 2px 16px 2px lightgrey;
-}*/
+.table_chart_container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
 
-.create_container:hover {
+.adjust_table_chart_margin {
+   margin-top: 10px;
+}
+
+.adjust_first_card:hover {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 0px 0px lightgrey;
+}
+
+.adjust_second_card:hover {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 0px 0px lightgrey;
+}
+
+.adjust_third_card:hover {
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 0px 0px 0px lightgrey;
+}
+
+.adjust_fourth_card:hover {
   background-color: rgb(255, 255, 255);
   box-shadow: 0px 0px 0px 0px lightgrey;
 }
@@ -92,48 +264,6 @@ body {
 .chart_width:hover {
   background-color: rgb(255, 255, 255);
   box-shadow: 0px 0px 0px 0px lightgrey;
-}
-
-
-.adjust_image {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    position: fixed;
-}
-
-.margin_left_value {
-  margin-left: 110px;
-}
-
-.adjust_price {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    position: fixed;
-}
-
-.text_row2 {
-   margin-top: 40px;
-}
-
-.adjust_image_row2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    position: fixed;
-}
-
-.margin_left_value_row2 {
-  margin-left: 60px;
-}
-
-.adjust_price_row2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    position: fixed;
-    white-space: pre;
 }
 
 .table_style {
@@ -165,30 +295,6 @@ body {
 
 .hover_only_row:hover {
    background-color: #dddd;
-}
-
-.image {
-  margin-top: -12px;
-}
-
-.logo_text {
-  margin-top: -8px;
-}
-
-.logo_image {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  position: fixed;
-}
-
-
-.container-display {
-  display: flex;
-}
-
-.flex-display {
-  display: flex;
 }
 
 #mainContainer {

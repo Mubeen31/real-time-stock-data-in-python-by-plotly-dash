@@ -18,18 +18,18 @@ app.layout = html.Div([
         html.Div([
             html.Img(src = app.get_asset_url('financial-profit.png'),
                      style = {'height': '30px'},
+                     className = 'title_image'
                      ),
             html.H6('Real time Crypto currency data',
-                    style = {'color': 'black'},
+                    style = {'color': 'white'},
                     className = 'title'
                     ),
         ], className = 'logo_title'),
-        html.Div([
-            html.H6(id = 'get_date_time',
-                    style = {'color': 'black'},
-                    )
-        ], className = 'adjust_date_time twelve columns')
-    ], className = "row flex-display"),
+        html.H6(id = 'get_date_time',
+                style = {'color': 'white'},
+                className = 'adjust_date_time'
+                )
+    ], className = 'title_date_time_container'),
     html.Div([
         dcc.Interval(id = 'update_date_time',
                      interval = 1000,
@@ -41,44 +41,45 @@ app.layout = html.Div([
                      interval = 5000,
                      n_intervals = 0),
     ]),
-
     html.Div([
         html.Div([
             html.Div([
-                html.Div(id = 'text_row1'),
-                html.Div(id = 'text_row2', className = 'text_row2'),
-
-            ], className = 'create_container three columns'),
+                html.Div([
+                    html.Div(id = 'text_row1'),
+                    html.Div(id = 'text_row2'),
+                ], className = 'first_card_column'),
+            ], className = 'adjust_first_card'),
             html.Div([
-                html.Div(id = 'text_row3'),
-                html.Div(id = 'text_row4', className = 'text_row2'),
-
-            ], className = 'create_container three columns'),
-
+                html.Div([
+                    html.Div(id = 'text_row3'),
+                    html.Div(id = 'text_row4'),
+                ], className = 'second_card_column'),
+            ], className = 'adjust_second_card'),
             html.Div([
-                html.Div(id = 'text_row5'),
-                html.Div(id = 'text_row6', className = 'text_row2'),
-
-            ], className = 'create_container three columns'),
-
+                html.Div([
+                    html.Div(id = 'text_row5'),
+                    html.Div(id = 'text_row6'),
+                ], className = 'third_card_column'),
+            ], className = 'adjust_third_card'),
             html.Div([
-                html.Div(id = 'text_row7'),
-                html.Div(id = 'text_row8', className = 'text_row2'),
+                html.Div([
+                    html.Div(id = 'text_row7'),
+                    html.Div(id = 'text_row8'),
+                ], className = 'fourth_card_column'),
+            ], className = 'adjust_fourth_card'),
 
-            ], className = 'create_container three columns'),
-        ], className = 'container_gap twelve columns')
-
-    ], className = "row flex-display"),
-
+        ], className = 'flexbox_container'),
+    ], className = 'adjust_margin'),
     html.Div([
         html.Div([
-            html.Div(id = 'table_data', className = 'table_width'),
+            html.Div(id = 'table_data',
+                     className = 'table_width'),
             dcc.Graph(id = 'bitcoin_chart',
                       animate = True,
                       config = {'displayModeBar': 'hover'},
                       className = 'chart_width'),
-        ], className = 'second_row twelve columns')
-    ], className = "row flex-display")
+        ], className = "table_chart_container")
+    ], className = 'adjust_table_chart_margin')
 
 ], id= "mainContainer",
    style={"display": "flex", "flex-direction": "column"})
@@ -109,98 +110,101 @@ def update_graph(n_intervals):
 
     if price_difference > 0:
         return [
-            html.P('Bitcoin',
-                   style = {'textAlign': 'left',
-                            'color': 'Black',
-                            'fontSize': 17,
-                            }
-                   ),
             html.Div([
-                html.Div([
-                    html.H6('{0:,.2f}'.format(bitcoin_price),
-                            style = {'textAlign': 'left',
-                                     'color': '#00cc00',
-                                     'margin-top': '-8px',
-                                     'font-weight': 'bold'
-                                     }
-                            ),
-                    html.I(className = "fas fa-arrow-up",
-                           style = {"font-size": "120%",
-                                    'margin-top': '-1px',
-                                    'color': '#00cc00'}),
-
-                ], className = 'adjust_image'),
-                html.P('${0:,.0f}'.format(bitcoin_price),
-                       style = {'textAlign': 'left',
-                                'color': '#808080',
-                                'fontSize': 14,
-                                'margin-top': '-2px',
-                                }, className = 'margin_left_value'
+                html.P('Bitcoin',
+                       style = {
+                           'color': 'Black',
+                           'fontSize': 17,
+                       },
+                       className = 'coin_name'
                        ),
-            ], className = 'adjust_price')
+                html.Div([
+                    html.Div([
+                        html.H6('{0:,.2f}'.format(bitcoin_price),
+                                style = {
+                                    'color': '#00cc00',
+                                    'font-weight': 'bold'
+                                }, className = 'coin_price'
+                                ),
+                        html.Div([
+                            html.I(className = "fas fa-arrow-up",
+                                   style = {"font-size": "120%",
+                                            'color': '#00cc00'},
+                                   ),
+                        ], className = 'price_indicator'),
+
+                    ], className = 'adjust_price_and_coin'),
+                    html.P('${0:,.0f}'.format(bitcoin_price),
+                           style = {
+                               'color': '#808080',
+                               'fontSize': 14,
+                           }, className = 'right_price_value'
+                           ),
+                ], className = 'adjust_price_indicator_right')
+            ], className = 'coin_price_column'),
 
         ]
     elif price_difference < 0:
         return [
-            html.P('Bitcoin',
-                   style = {'textAlign': 'left',
-                            'color': 'Black',
-                            'fontSize': 17,
-                            }
-                   ),
             html.Div([
-                html.Div([
-                    html.H6('{0:,.2f}'.format(bitcoin_price),
-                            style = {'textAlign': 'left',
-                                     'color': '#EC1E3D',
-                                     'margin-top': '-8px',
-                                     'font-weight': 'bold'
-                                     }
-                            ),
-                    html.I(className = "fas fa-arrow-down",
-                           style = {"font-size": "120%",
-                                    'margin-top': '-1px',
-                                    'color': '#EC1E3D'}),
-
-                ], className = 'adjust_image'),
-                html.P('${0:,.0f}'.format(bitcoin_price),
-                       style = {'textAlign': 'left',
-                                'color': '#808080',
-                                'fontSize': 14,
-                                'margin-top': '-2px',
-                                }, className = 'margin_left_value'
+                html.P('Bitcoin',
+                       style = {
+                           'color': 'Black',
+                           'fontSize': 17,
+                       },
+                       className = 'coin_name'
                        ),
-            ], className = 'adjust_price')
+                html.Div([
+                    html.Div([
+                        html.H6('{0:,.2f}'.format(bitcoin_price),
+                                style = {
+                                    'color': '#00cc00',
+                                    'font-weight': 'bold'
+                                }, className = 'coin_price'
+                                ),
+                        html.Div([
+                            html.I(className = "fas fa-arrow-down",
+                                   style = {"font-size": "120%",
+                                            'color': '#EC1E3D'},
+                                   ),
+                        ], className = 'price_indicator'),
 
+                    ], className = 'adjust_price_and_coin'),
+                    html.P('${0:,.0f}'.format(bitcoin_price),
+                           style = {
+                               'color': '#808080',
+                               'fontSize': 14,
+                           }, className = 'right_price_value'
+                           ),
+                ], className = 'adjust_price_indicator_right')
+            ], className = 'coin_price_column'),
         ]
     elif price_difference == 0:
         return [
-            html.P('Bitcoin',
-                   style = {'textAlign': 'left',
-                            'color': 'Black',
-                            'fontSize': 17,
-                            }
-                   ),
             html.Div([
+                html.P('Bitcoin',
+                       style = {
+                           'color': 'Black',
+                           'fontSize': 17,
+                       },
+                       className = 'coin_name'
+                       ),
                 html.Div([
                     html.H6('{0:,.2f}'.format(bitcoin_price),
-                            style = {'textAlign': 'left',
-                                     'color': 'black',
-                                     'margin-top': '-8px',
-                                     'font-weight': 'bold'
-                                     }
+                            style = {
+                                'color': 'black',
+                                'font-weight': 'bold'
+                            }, className = 'coin_price'
                             ),
 
-                ], className = 'adjust_image'),
-                html.P('${0:,.0f}'.format(bitcoin_price),
-                       style = {'textAlign': 'left',
-                                'color': '#808080',
-                                'fontSize': 14,
-                                'margin-top': '-2px',
-                                }, className = 'margin_left_value'
-                       ),
-            ], className = 'adjust_price')
-
+                    html.P('${0:,.0f}'.format(bitcoin_price),
+                           style = {
+                               'color': '#808080',
+                               'fontSize': 14,
+                           }, className = 'right_price_value'
+                           ),
+                ], className = 'adjust_price_no_right')
+            ], className = 'coin_price_column'),
         ]
 
 @app.callback(Output('text_row2', 'children'),
@@ -215,84 +219,76 @@ def update_graph(n_intervals):
 
     if change_24h > 0:
         return [
+            html.Div([
                 html.Div([
+                    html.H6('+{0:,.2f}%'.format(change_24h),
+                            style = {
+                                'color': '#00cc00',
+                                'fontSize': 12,
+                                'font-weight': 'bold'
+                            }, className = 'price_difference'
+                            ),
                     html.Div([
-                        html.H6('+{0:,.2f}%'.format(change_24h),
-                                style = {'textAlign': 'left',
-                                         'color': '#00cc00',
-                                         'margin-top': '-8px',
-                                         'fontSize': 12,
-                                         'font-weight': 'bold'
-                                         }
-                                ),
                         html.I(className = "fas fa-arrow-up",
                                style = {"font-size": "80%",
-                                        'margin-top': '-5px',
                                         'color': '#00cc00'}),
 
-                    ], className = 'adjust_image_row2'),
-                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 12,
-                                    'margin-top': '-8px',
-                                    }, className = 'margin_left_value_row2'
-                           ),
-                ], className = 'adjust_price_row2')
+                    ], className = 'difference_indicator'),
+                ], className = 'difference_row'),
+                html.P('Cap:' + '${0:,.0f}'.format(market_cap),
+                       style = {
+                           'color': '#808080',
+                           'fontSize': 12,
+                       }, className = 'cap_right_value'
+                       ),
+            ], className = 'diff_row_cap'),
 
-            ]
+        ]
     elif change_24h < 0:
         return [
+            html.Div([
                 html.Div([
+                    html.H6('{0:,.2f}%'.format(change_24h),
+                            style = {
+                                'color': '#EC1E3D',
+                                'fontSize': 12,
+                                'font-weight': 'bold'
+                            }, className = 'price_difference'
+                            ),
                     html.Div([
-                        html.H6('{0:,.2f}%'.format(change_24h),
-                                style = {'textAlign': 'left',
-                                         'color': '#EC1E3D',
-                                         'margin-top': '-8px',
-                                         'fontSize': 12,
-                                         'font-weight': 'bold'
-                                         }
-                                ),
                         html.I(className = "fas fa-arrow-down",
                                style = {"font-size": "80%",
-                                        'margin-top': '-5px',
                                         'color': '#EC1E3D'}),
 
-                    ], className = 'adjust_image_row2'),
-                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 12,
-                                    'margin-top': '-8px',
-                                    }, className = 'margin_left_value_row2'
-                           ),
-                ], className = 'adjust_price_row2')
-
-            ]
+                    ], className = 'difference_indicator'),
+                ], className = 'difference_row'),
+                html.P('Cap:' + '${0:,.0f}'.format(market_cap),
+                       style = {
+                           'color': '#808080',
+                           'fontSize': 12,
+                       }, className = 'cap_right_value'
+                       ),
+            ], className = 'diff_row_cap'),
+        ]
     elif change_24h == 0:
         return [
-                html.Div([
-                    html.Div([
-                        html.H6('{0:,.2f}%'.format(change_24h),
-                                style = {'textAlign': 'left',
-                                         'color': 'black',
-                                         'margin-top': '-8px',
-                                         'fontSize': 12,
-                                         'font-weight': 'bold'
-                                         }
-                                ),
+            html.Div([
+                html.H6('{0:,.2f}%'.format(change_24h),
+                        style = {
+                            'color': 'black',
+                            'fontSize': 12,
+                            'font-weight': 'bold'
+                        }, className = 'price_difference'
+                        ),
+                html.P('Cap:' + '${0:,.0f}'.format(market_cap),
+                       style = {
+                           'color': '#808080',
+                           'fontSize': 12,
+                       }, className = 'cap_right_value'
+                       ),
+            ], className = 'zero_diff_row_cap'),
 
-                    ], className = 'adjust_image_row2'),
-                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 12,
-                                    'margin-top': '-8px',
-                                    }, className = 'margin_left_value_row2'
-                           ),
-                ], className = 'adjust_price_row2')
-
-            ]
+        ]
 
 @app.callback(Output('text_row3', 'children'),
                 [Input('update_value', 'n_intervals')])
@@ -306,100 +302,103 @@ def update_graph(n_intervals):
         raise PreventUpdate
 
     if price_difference > 0:
-            return [
+        return [
+            html.Div([
                 html.P('Ethereum',
-                       style = {'textAlign': 'left',
-                                'color': 'Black',
-                                'fontSize': 17,
-                                }
+                       style = {
+                           'color': 'Black',
+                           'fontSize': 17,
+                       },
+                       className = 'coin_name'
                        ),
                 html.Div([
                     html.Div([
                         html.H6('{0:,.2f}'.format(ethereum_price),
-                                style = {'textAlign': 'left',
-                                         'color': '#00cc00',
-                                         'margin-top': '-8px',
-                                         'font-weight': 'bold'
-                                         }
+                                style = {
+                                    'color': '#00cc00',
+                                    'font-weight': 'bold'
+                                }, className = 'coin_price'
                                 ),
-                        html.I(className = "fas fa-arrow-up",
-                               style = {"font-size": "120%",
-                                        'margin-top': '-1px',
-                                        'color': '#00cc00'}),
+                        html.Div([
+                            html.I(className = "fas fa-arrow-up",
+                                   style = {"font-size": "120%",
+                                            'color': '#00cc00'},
+                                   ),
+                        ], className = 'price_indicator'),
 
-                    ], className = 'adjust_image'),
+                    ], className = 'adjust_price_and_coin'),
                     html.P('${0:,.0f}'.format(ethereum_price),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 14,
-                                    'margin-top': '-2px',
-                                    }, className = 'margin_left_value'
+                           style = {
+                               'color': '#808080',
+                               'fontSize': 14,
+                           }, className = 'right_price_value'
                            ),
-                ], className = 'adjust_price')
+                ], className = 'adjust_price_indicator_right')
+            ], className = 'coin_price_column'),
 
-            ]
+        ]
     elif price_difference < 0:
-            return [
+        return [
+            html.Div([
                 html.P('Ethereum',
-                       style = {'textAlign': 'left',
-                                'color': 'Black',
-                                'fontSize': 17,
-                                }
+                       style = {
+                           'color': 'Black',
+                           'fontSize': 17,
+                       },
+                       className = 'coin_name'
                        ),
                 html.Div([
                     html.Div([
                         html.H6('{0:,.2f}'.format(ethereum_price),
-                                style = {'textAlign': 'left',
-                                         'color': '#EC1E3D',
-                                         'margin-top': '-8px',
-                                         'font-weight': 'bold'
-                                         }
+                                style = {
+                                    'color': '#00cc00',
+                                    'font-weight': 'bold'
+                                }, className = 'coin_price'
                                 ),
-                        html.I(className = "fas fa-arrow-down",
-                               style = {"font-size": "120%",
-                                        'margin-top': '-1px',
-                                        'color': '#EC1E3D'}),
+                        html.Div([
+                            html.I(className = "fas fa-arrow-down",
+                                   style = {"font-size": "120%",
+                                            'color': '#EC1E3D'},
+                                   ),
+                        ], className = 'price_indicator'),
 
-                    ], className = 'adjust_image'),
+                    ], className = 'adjust_price_and_coin'),
                     html.P('${0:,.0f}'.format(ethereum_price),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 14,
-                                    'margin-top': '-2px',
-                                    }, className = 'margin_left_value'
+                           style = {
+                               'color': '#808080',
+                               'fontSize': 14,
+                           }, className = 'right_price_value'
                            ),
-                ], className = 'adjust_price')
-
-            ]
+                ], className = 'adjust_price_indicator_right')
+            ], className = 'coin_price_column'),
+        ]
     elif price_difference == 0:
-            return [
+        return [
+            html.Div([
                 html.P('Ethereum',
-                       style = {'textAlign': 'left',
-                                'color': 'Black',
-                                'fontSize': 17,
-                                }
+                       style = {
+                           'color': 'Black',
+                           'fontSize': 17,
+                       },
+                       className = 'coin_name'
                        ),
                 html.Div([
-                    html.Div([
-                        html.H6('{0:,.2f}'.format(ethereum_price),
-                                style = {'textAlign': 'left',
-                                         'color': 'black',
-                                         'margin-top': '-8px',
-                                         'font-weight': 'bold'
-                                         }
-                                ),
+                    html.H6('{0:,.2f}'.format(ethereum_price),
+                            style = {
+                                'color': 'black',
+                                'font-weight': 'bold'
+                            }, className = 'coin_price'
+                            ),
 
-                    ], className = 'adjust_image'),
                     html.P('${0:,.0f}'.format(ethereum_price),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 14,
-                                    'margin-top': '-2px',
-                                    }, className = 'margin_left_value'
+                           style = {
+                               'color': '#808080',
+                               'fontSize': 14,
+                           }, className = 'right_price_value'
                            ),
-                ], className = 'adjust_price')
-
-            ]
+                ], className = 'adjust_price_no_right')
+            ], className = 'coin_price_column'),
+        ]
 
 @app.callback(Output('text_row4', 'children'),
                 [Input('update_value', 'n_intervals')])
@@ -412,85 +411,77 @@ def update_graph(n_intervals):
         raise PreventUpdate
 
     if change_24h > 0:
-            return [
+        return [
+            html.Div([
                 html.Div([
+                    html.H6('+{0:,.2f}%'.format(change_24h),
+                            style = {
+                                'color': '#00cc00',
+                                'fontSize': 12,
+                                'font-weight': 'bold'
+                            }, className = 'price_difference'
+                            ),
                     html.Div([
-                        html.H6('+{0:,.2f}%'.format(change_24h),
-                                style = {'textAlign': 'left',
-                                         'color': '#00cc00',
-                                         'margin-top': '-8px',
-                                         'fontSize': 12,
-                                         'font-weight': 'bold'
-                                         }
-                                ),
                         html.I(className = "fas fa-arrow-up",
                                style = {"font-size": "80%",
-                                        'margin-top': '-5px',
                                         'color': '#00cc00'}),
 
-                    ], className = 'adjust_image_row2'),
-                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 12,
-                                    'margin-top': '-8px',
-                                    }, className = 'margin_left_value_row2'
-                           ),
-                ], className = 'adjust_price_row2')
+                    ], className = 'difference_indicator'),
+                ], className = 'difference_row'),
+                html.P('Cap:' + '${0:,.0f}'.format(market_cap),
+                       style = {
+                           'color': '#808080',
+                           'fontSize': 12,
+                       }, className = 'cap_right_value'
+                       ),
+            ], className = 'diff_row_cap'),
 
-            ]
+        ]
     elif change_24h < 0:
-            return [
+        return [
+            html.Div([
                 html.Div([
+                    html.H6('{0:,.2f}%'.format(change_24h),
+                            style = {
+                                'color': '#EC1E3D',
+                                'fontSize': 12,
+                                'font-weight': 'bold'
+                            }, className = 'price_difference'
+                            ),
                     html.Div([
-                        html.H6('{0:,.2f}%'.format(change_24h),
-                                style = {'textAlign': 'left',
-                                         'color': '#EC1E3D',
-                                         'margin-top': '-8px',
-                                         'fontSize': 12,
-                                         'font-weight': 'bold'
-                                         }
-                                ),
                         html.I(className = "fas fa-arrow-down",
                                style = {"font-size": "80%",
-                                        'margin-top': '-5px',
                                         'color': '#EC1E3D'}),
 
-                    ], className = 'adjust_image_row2'),
-                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 12,
-                                    'margin-top': '-8px',
-                                    }, className = 'margin_left_value_row2'
-                           ),
-                ], className = 'adjust_price_row2')
+                    ], className = 'difference_indicator'),
+                ], className = 'difference_row'),
+                html.P('Cap:' + '${0:,.0f}'.format(market_cap),
+                       style = {
+                           'color': '#808080',
+                           'fontSize': 12,
+                       }, className = 'cap_right_value'
+                       ),
+            ], className = 'diff_row_cap'),
+        ]
+    elif change_24h == 0:
+        return [
+            html.Div([
+                html.H6('{0:,.2f}%'.format(change_24h),
+                        style = {
+                            'color': 'black',
+                            'fontSize': 12,
+                            'font-weight': 'bold'
+                        }, className = 'price_difference'
+                        ),
+                html.P('Cap:' + '${0:,.0f}'.format(market_cap),
+                       style = {
+                           'color': '#808080',
+                           'fontSize': 12,
+                       }, className = 'cap_right_value'
+                       ),
+            ], className = 'zero_diff_row_cap'),
 
-            ]
-    if change_24h == 0:
-            return [
-                html.Div([
-                    html.Div([
-                        html.H6('{0:,.2f}%'.format(change_24h),
-                                style = {'textAlign': 'left',
-                                         'color': 'black',
-                                         'margin-top': '-8px',
-                                         'fontSize': 12,
-                                         'font-weight': 'bold'
-                                         }
-                                ),
-
-                    ], className = 'adjust_image_row2'),
-                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 12,
-                                    'margin-top': '-8px',
-                                    }, className = 'margin_left_value_row2'
-                           ),
-                ], className = 'adjust_price_row2')
-
-            ]
+        ]
 @app.callback(Output('text_row5', 'children'),
                 [Input('update_value', 'n_intervals')])
 def update_graph(n_intervals):
@@ -503,100 +494,103 @@ def update_graph(n_intervals):
         raise PreventUpdate
 
     if price_difference > 0:
-            return [
+        return [
+            html.Div([
                 html.P('Binance Coin',
-                       style = {'textAlign': 'left',
-                                'color': 'Black',
-                                'fontSize': 17,
-                                }
+                       style = {
+                           'color': 'Black',
+                           'fontSize': 17,
+                       },
+                       className = 'coin_name'
                        ),
                 html.Div([
                     html.Div([
                         html.H6('{0:,.2f}'.format(binance_price),
-                                style = {'textAlign': 'left',
-                                         'color': '#00cc00',
-                                         'margin-top': '-8px',
-                                         'font-weight': 'bold'
-                                         }
+                                style = {
+                                    'color': '#00cc00',
+                                    'font-weight': 'bold'
+                                }, className = 'coin_price'
                                 ),
-                        html.I(className = "fas fa-arrow-up",
-                               style = {"font-size": "120%",
-                                        'margin-top': '-1px',
-                                        'color': '#00cc00'}),
+                        html.Div([
+                            html.I(className = "fas fa-arrow-up",
+                                   style = {"font-size": "120%",
+                                            'color': '#00cc00'},
+                                   ),
+                        ], className = 'price_indicator'),
 
-                    ], className = 'adjust_image'),
+                    ], className = 'adjust_price_and_coin'),
                     html.P('${0:,.0f}'.format(binance_price),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 14,
-                                    'margin-top': '-2px',
-                                    }, className = 'margin_left_value'
+                           style = {
+                               'color': '#808080',
+                               'fontSize': 14,
+                           }, className = 'right_price_value'
                            ),
-                ], className = 'adjust_price')
+                ], className = 'adjust_price_indicator_right')
+            ], className = 'coin_price_column'),
 
-            ]
+        ]
     elif price_difference < 0:
-            return [
+        return [
+            html.Div([
                 html.P('Binance Coin',
-                       style = {'textAlign': 'left',
-                                'color': 'Black',
-                                'fontSize': 17,
-                                }
+                       style = {
+                           'color': 'Black',
+                           'fontSize': 17,
+                       },
+                       className = 'coin_name'
                        ),
                 html.Div([
                     html.Div([
                         html.H6('{0:,.2f}'.format(binance_price),
-                                style = {'textAlign': 'left',
-                                         'color': '#EC1E3D',
-                                         'margin-top': '-8px',
-                                         'font-weight': 'bold'
-                                         }
+                                style = {
+                                    'color': '#00cc00',
+                                    'font-weight': 'bold'
+                                }, className = 'coin_price'
                                 ),
-                        html.I(className = "fas fa-arrow-down",
-                               style = {"font-size": "120%",
-                                        'margin-top': '-1px',
-                                        'color': '#EC1E3D'}),
+                        html.Div([
+                            html.I(className = "fas fa-arrow-down",
+                                   style = {"font-size": "120%",
+                                            'color': '#EC1E3D'},
+                                   ),
+                        ], className = 'price_indicator'),
 
-                    ], className = 'adjust_image'),
+                    ], className = 'adjust_price_and_coin'),
                     html.P('${0:,.0f}'.format(binance_price),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 14,
-                                    'margin-top': '-2px',
-                                    }, className = 'margin_left_value'
+                           style = {
+                               'color': '#808080',
+                               'fontSize': 14,
+                           }, className = 'right_price_value'
                            ),
-                ], className = 'adjust_price')
-
-            ]
+                ], className = 'adjust_price_indicator_right')
+            ], className = 'coin_price_column'),
+        ]
     elif price_difference == 0:
-            return [
+        return [
+            html.Div([
                 html.P('Binance Coin',
-                       style = {'textAlign': 'left',
-                                'color': 'Black',
-                                'fontSize': 17,
-                                }
+                       style = {
+                           'color': 'Black',
+                           'fontSize': 17,
+                       },
+                       className = 'coin_name'
                        ),
                 html.Div([
-                    html.Div([
-                        html.H6('{0:,.2f}'.format(binance_price),
-                                style = {'textAlign': 'left',
-                                         'color': 'black',
-                                         'margin-top': '-8px',
-                                         'font-weight': 'bold'
-                                         }
-                                ),
+                    html.H6('{0:,.2f}'.format(binance_price),
+                            style = {
+                                'color': 'black',
+                                'font-weight': 'bold'
+                            }, className = 'coin_price'
+                            ),
 
-                    ], className = 'adjust_image'),
                     html.P('${0:,.0f}'.format(binance_price),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 14,
-                                    'margin-top': '-2px',
-                                    }, className = 'margin_left_value'
+                           style = {
+                               'color': '#808080',
+                               'fontSize': 14,
+                           }, className = 'right_price_value'
                            ),
-                ], className = 'adjust_price')
-
-            ]
+                ], className = 'adjust_price_no_right')
+            ], className = 'coin_price_column'),
+        ]
 
 @app.callback(Output('text_row6', 'children'),
                 [Input('update_value', 'n_intervals')])
@@ -609,85 +603,77 @@ def update_graph(n_intervals):
         raise PreventUpdate
 
     if change_24h > 0:
-            return [
+        return [
+            html.Div([
                 html.Div([
+                    html.H6('+{0:,.2f}%'.format(change_24h),
+                            style = {
+                                'color': '#00cc00',
+                                'fontSize': 12,
+                                'font-weight': 'bold'
+                            }, className = 'price_difference'
+                            ),
                     html.Div([
-                        html.H6('+{0:,.2f}%'.format(change_24h),
-                                style = {'textAlign': 'left',
-                                         'color': '#00cc00',
-                                         'margin-top': '-8px',
-                                         'fontSize': 12,
-                                         'font-weight': 'bold'
-                                         }
-                                ),
                         html.I(className = "fas fa-arrow-up",
                                style = {"font-size": "80%",
-                                        'margin-top': '-5px',
                                         'color': '#00cc00'}),
 
-                    ], className = 'adjust_image_row2'),
-                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 12,
-                                    'margin-top': '-8px',
-                                    }, className = 'margin_left_value_row2'
-                           ),
-                ], className = 'adjust_price_row2')
+                    ], className = 'difference_indicator'),
+                ], className = 'difference_row'),
+                html.P('Cap:' + '${0:,.0f}'.format(market_cap),
+                       style = {
+                           'color': '#808080',
+                           'fontSize': 12,
+                       }, className = 'cap_right_value'
+                       ),
+            ], className = 'diff_row_cap'),
 
-            ]
+        ]
     elif change_24h < 0:
-            return [
+        return [
+            html.Div([
                 html.Div([
+                    html.H6('{0:,.2f}%'.format(change_24h),
+                            style = {
+                                'color': '#EC1E3D',
+                                'fontSize': 12,
+                                'font-weight': 'bold'
+                            }, className = 'price_difference'
+                            ),
                     html.Div([
-                        html.H6('{0:,.2f}%'.format(change_24h),
-                                style = {'textAlign': 'left',
-                                         'color': '#EC1E3D',
-                                         'margin-top': '-8px',
-                                         'fontSize': 12,
-                                         'font-weight': 'bold'
-                                         }
-                                ),
                         html.I(className = "fas fa-arrow-down",
                                style = {"font-size": "80%",
-                                        'margin-top': '-5px',
                                         'color': '#EC1E3D'}),
 
-                    ], className = 'adjust_image_row2'),
-                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 12,
-                                    'margin-top': '-8px',
-                                    }, className = 'margin_left_value_row2'
-                           ),
-                ], className = 'adjust_price_row2')
+                    ], className = 'difference_indicator'),
+                ], className = 'difference_row'),
+                html.P('Cap:' + '${0:,.0f}'.format(market_cap),
+                       style = {
+                           'color': '#808080',
+                           'fontSize': 12,
+                       }, className = 'cap_right_value'
+                       ),
+            ], className = 'diff_row_cap'),
+        ]
+    elif change_24h == 0:
+        return [
+            html.Div([
+                html.H6('{0:,.2f}%'.format(change_24h),
+                        style = {
+                            'color': 'black',
+                            'fontSize': 12,
+                            'font-weight': 'bold'
+                        }, className = 'price_difference'
+                        ),
+                html.P('Cap:' + '${0:,.0f}'.format(market_cap),
+                       style = {
+                           'color': '#808080',
+                           'fontSize': 12,
+                       }, className = 'cap_right_value'
+                       ),
+            ], className = 'zero_diff_row_cap'),
 
-            ]
-    if change_24h == 0:
-            return [
-                html.Div([
-                    html.Div([
-                        html.H6('{0:,.2f}%'.format(change_24h),
-                                style = {'textAlign': 'left',
-                                         'color': 'black',
-                                         'margin-top': '-8px',
-                                         'fontSize': 12,
-                                         'font-weight': 'bold'
-                                         }
-                                ),
-
-                    ], className = 'adjust_image_row2'),
-                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 12,
-                                    'margin-top': '-8px',
-                                    }, className = 'margin_left_value_row2'
-                           ),
-                ], className = 'adjust_price_row2')
-
-            ]
+        ]
 @app.callback(Output('text_row7', 'children'),
                 [Input('update_value', 'n_intervals')])
 def update_graph(n_intervals):
@@ -700,100 +686,103 @@ def update_graph(n_intervals):
         raise PreventUpdate
 
     if price_difference > 0:
-            return [
+        return [
+            html.Div([
                 html.P('Bitcoin Cash',
-                       style = {'textAlign': 'left',
-                                'color': 'Black',
-                                'fontSize': 17,
-                                }
+                       style = {
+                           'color': 'Black',
+                           'fontSize': 17,
+                       },
+                       className = 'coin_name'
                        ),
                 html.Div([
                     html.Div([
                         html.H6('{0:,.2f}'.format(bitcoincash_price),
-                                style = {'textAlign': 'left',
-                                         'color': '#00cc00',
-                                         'margin-top': '-8px',
-                                         'font-weight': 'bold'
-                                         }
+                                style = {
+                                    'color': '#00cc00',
+                                    'font-weight': 'bold'
+                                }, className = 'coin_price'
                                 ),
-                        html.I(className = "fas fa-arrow-up",
-                               style = {"font-size": "120%",
-                                        'margin-top': '-1px',
-                                        'color': '#00cc00'}),
+                        html.Div([
+                            html.I(className = "fas fa-arrow-up",
+                                   style = {"font-size": "120%",
+                                            'color': '#00cc00'},
+                                   ),
+                        ], className = 'price_indicator'),
 
-                    ], className = 'adjust_image'),
+                    ], className = 'adjust_price_and_coin'),
                     html.P('${0:,.0f}'.format(bitcoincash_price),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 14,
-                                    'margin-top': '-2px',
-                                    }, className = 'margin_left_value'
+                           style = {
+                               'color': '#808080',
+                               'fontSize': 14,
+                           }, className = 'right_price_value'
                            ),
-                ], className = 'adjust_price')
+                ], className = 'adjust_price_indicator_right')
+            ], className = 'coin_price_column'),
 
-            ]
+        ]
     elif price_difference < 0:
-            return [
+        return [
+            html.Div([
                 html.P('Bitcoin Cash',
-                       style = {'textAlign': 'left',
-                                'color': 'Black',
-                                'fontSize': 17,
-                                }
+                       style = {
+                           'color': 'Black',
+                           'fontSize': 17,
+                       },
+                       className = 'coin_name'
                        ),
                 html.Div([
                     html.Div([
                         html.H6('{0:,.2f}'.format(bitcoincash_price),
-                                style = {'textAlign': 'left',
-                                         'color': '#EC1E3D',
-                                         'margin-top': '-8px',
-                                         'font-weight': 'bold'
-                                         }
+                                style = {
+                                    'color': '#00cc00',
+                                    'font-weight': 'bold'
+                                }, className = 'coin_price'
                                 ),
-                        html.I(className = "fas fa-arrow-down",
-                               style = {"font-size": "120%",
-                                        'margin-top': '-1px',
-                                        'color': '#EC1E3D'}),
+                        html.Div([
+                            html.I(className = "fas fa-arrow-down",
+                                   style = {"font-size": "120%",
+                                            'color': '#EC1E3D'},
+                                   ),
+                        ], className = 'price_indicator'),
 
-                    ], className = 'adjust_image'),
+                    ], className = 'adjust_price_and_coin'),
                     html.P('${0:,.0f}'.format(bitcoincash_price),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 14,
-                                    'margin-top': '-2px',
-                                    }, className = 'margin_left_value'
+                           style = {
+                               'color': '#808080',
+                               'fontSize': 14,
+                           }, className = 'right_price_value'
                            ),
-                ], className = 'adjust_price')
-
-            ]
+                ], className = 'adjust_price_indicator_right')
+            ], className = 'coin_price_column'),
+        ]
     elif price_difference == 0:
-            return [
+        return [
+            html.Div([
                 html.P('Bitcoin Cash',
-                       style = {'textAlign': 'left',
-                                'color': 'Black',
-                                'fontSize': 17,
-                                }
+                       style = {
+                           'color': 'Black',
+                           'fontSize': 17,
+                       },
+                       className = 'coin_name'
                        ),
                 html.Div([
-                    html.Div([
-                        html.H6('{0:,.2f}'.format(bitcoincash_price),
-                                style = {'textAlign': 'left',
-                                         'color': 'black',
-                                         'margin-top': '-8px',
-                                         'font-weight': 'bold'
-                                         }
-                                ),
+                    html.H6('{0:,.2f}'.format(bitcoincash_price),
+                            style = {
+                                'color': 'black',
+                                'font-weight': 'bold'
+                            }, className = 'coin_price'
+                            ),
 
-                    ], className = 'adjust_image'),
                     html.P('${0:,.0f}'.format(bitcoincash_price),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 14,
-                                    'margin-top': '-2px',
-                                    }, className = 'margin_left_value'
+                           style = {
+                               'color': '#808080',
+                               'fontSize': 14,
+                           }, className = 'right_price_value'
                            ),
-                ], className = 'adjust_price')
-
-            ]
+                ], className = 'adjust_price_no_right')
+            ], className = 'coin_price_column'),
+        ]
 
 @app.callback(Output('text_row8', 'children'),
                 [Input('update_value', 'n_intervals')])
@@ -806,85 +795,77 @@ def update_graph(n_intervals):
         raise PreventUpdate
 
     if change_24h > 0:
-            return [
+        return [
+            html.Div([
                 html.Div([
+                    html.H6('+{0:,.2f}%'.format(change_24h),
+                            style = {
+                                'color': '#00cc00',
+                                'fontSize': 12,
+                                'font-weight': 'bold'
+                            }, className = 'price_difference'
+                            ),
                     html.Div([
-                        html.H6('+{0:,.2f}%'.format(change_24h),
-                                style = {'textAlign': 'left',
-                                         'color': '#00cc00',
-                                         'margin-top': '-8px',
-                                         'fontSize': 12,
-                                         'font-weight': 'bold'
-                                         }
-                                ),
                         html.I(className = "fas fa-arrow-up",
                                style = {"font-size": "80%",
-                                        'margin-top': '-5px',
                                         'color': '#00cc00'}),
 
-                    ], className = 'adjust_image_row2'),
-                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 12,
-                                    'margin-top': '-8px',
-                                    }, className = 'margin_left_value_row2'
-                           ),
-                ], className = 'adjust_price_row2')
+                    ], className = 'difference_indicator'),
+                ], className = 'difference_row'),
+                html.P('Cap:' + '${0:,.0f}'.format(market_cap),
+                       style = {
+                           'color': '#808080',
+                           'fontSize': 12,
+                       }, className = 'cap_right_value'
+                       ),
+            ], className = 'diff_row_cap'),
 
-            ]
+        ]
     elif change_24h < 0:
-            return [
+        return [
+            html.Div([
                 html.Div([
+                    html.H6('{0:,.2f}%'.format(change_24h),
+                            style = {
+                                'color': '#EC1E3D',
+                                'fontSize': 12,
+                                'font-weight': 'bold'
+                            }, className = 'price_difference'
+                            ),
                     html.Div([
-                        html.H6('{0:,.2f}%'.format(change_24h),
-                                style = {'textAlign': 'left',
-                                         'color': '#EC1E3D',
-                                         'margin-top': '-8px',
-                                         'fontSize': 12,
-                                         'font-weight': 'bold'
-                                         }
-                                ),
                         html.I(className = "fas fa-arrow-down",
                                style = {"font-size": "80%",
-                                        'margin-top': '-5px',
                                         'color': '#EC1E3D'}),
 
-                    ], className = 'adjust_image_row2'),
-                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 12,
-                                    'margin-top': '-8px',
-                                    }, className = 'margin_left_value_row2'
-                           ),
-                ], className = 'adjust_price_row2')
+                    ], className = 'difference_indicator'),
+                ], className = 'difference_row'),
+                html.P('Cap:' + '${0:,.0f}'.format(market_cap),
+                       style = {
+                           'color': '#808080',
+                           'fontSize': 12,
+                       }, className = 'cap_right_value'
+                       ),
+            ], className = 'diff_row_cap'),
+        ]
+    elif change_24h == 0:
+        return [
+            html.Div([
+                html.H6('{0:,.2f}%'.format(change_24h),
+                        style = {
+                            'color': 'black',
+                            'fontSize': 12,
+                            'font-weight': 'bold'
+                        }, className = 'price_difference'
+                        ),
+                html.P('Cap:' + '${0:,.0f}'.format(market_cap),
+                       style = {
+                           'color': '#808080',
+                           'fontSize': 12,
+                       }, className = 'cap_right_value'
+                       ),
+            ], className = 'zero_diff_row_cap'),
 
-            ]
-    if change_24h == 0:
-            return [
-                html.Div([
-                    html.Div([
-                        html.H6('{0:,.2f}%'.format(change_24h),
-                                style = {'textAlign': 'left',
-                                         'color': 'black',
-                                         'margin-top': '-8px',
-                                         'fontSize': 12,
-                                         'font-weight': 'bold'
-                                         }
-                                ),
-
-                    ], className = 'adjust_image_row2'),
-                    html.P('Cap:' + '${0:,.0f}'.format(market_cap),
-                           style = {'textAlign': 'left',
-                                    'color': '#808080',
-                                    'fontSize': 12,
-                                    'margin-top': '-8px',
-                                    }, className = 'margin_left_value_row2'
-                           ),
-                ], className = 'adjust_price_row2')
-
-            ]
+        ]
 
 @app.callback(Output('table_data', 'children'),
               [Input('update_value', 'n_intervals')])
@@ -927,9 +908,11 @@ def update_graph(n_intervals):
         html.Table([
             html.Thead(
                 html.Tr([
-                    html.Th('#', style = {'width': '30px'}),
-                    html.Th('Crypto Currency', style = {'width': '120px'},
-                                               className = 'crypto_column'),
+                    html.Th('#', style = {'width': '30px', 'textAlign': 'center'}),
+                    html.Th('Crypto Currency',
+                            style = {'width': '120px'},
+                            className = 'crypto_column'
+                            ),
                     html.Th('Price', style = {'width': '120px'}),
                     html.Th('Change (24)', style = {'width': '90px'}),
                     html.Th('Market Cap.', style = {'width': '150px'})
@@ -937,7 +920,7 @@ def update_graph(n_intervals):
             ),
             html.Tbody([
                 html.Tr([
-                    html.Td(html.P('1', style = {'textAlign': 'left',
+                    html.Td(html.P('1', style = {'textAlign': 'center',
                                                  'color': 'black',
                                                  'fontSize': 12,
                                                  'margin-top': '10px',
@@ -947,8 +930,8 @@ def update_graph(n_intervals):
                         html.Img(src = app.get_asset_url('chainlink.png'),
                                  style = {'height': '30px'},
                                  className = 'image'),
-                        html.P('Chainlink', style = {'margin-left': '-12px'},
-                                            className = 'logo_text'
+                        html.P('Chainlink',
+                               className = 'logo_text'
                                )
                     ], className = 'logo_image'),
                     ),
@@ -982,7 +965,7 @@ def update_graph(n_intervals):
                 ], className = 'hover_only_row'),
 
                 html.Tr([
-                    html.Td(html.P('2', style = {'textAlign': 'left',
+                    html.Td(html.P('2', style = {'textAlign': 'center',
                                                  'color': 'black',
                                                  'fontSize': 12,
                                                  'margin-top': '10px',
@@ -992,8 +975,8 @@ def update_graph(n_intervals):
                         html.Img(src = app.get_asset_url('bitcoin.png'),
                                  style = {'height': '30px'},
                                  className = 'image'),
-                        html.P('Bitcoin', style = {'margin-left': '-3px'},
-                                          className = 'logo_text')
+                        html.P('Bitcoin',
+                               className = 'logo_text')
                     ], className = 'logo_image'),
                     ),
                     html.Td(
@@ -1026,7 +1009,7 @@ def update_graph(n_intervals):
                 ], className = 'hover_only_row'),
 
                 html.Tr([
-                    html.Td(html.P('3', style = {'textAlign': 'left',
+                    html.Td(html.P('3', style = {'textAlign': 'center',
                                                  'color': 'black',
                                                  'fontSize': 12,
                                                  'margin-top': '10px',
@@ -1036,7 +1019,7 @@ def update_graph(n_intervals):
                         html.Img(src = app.get_asset_url('ethereum.png'),
                                  style = {'height': '30px'},
                                  className = 'image'),
-                        html.P('Ethereum', style = {'margin-left': '-15px'},
+                        html.P('Ethereum',
                                className = 'logo_text')
                     ], className = 'logo_image'),
                     ),
@@ -1070,7 +1053,7 @@ def update_graph(n_intervals):
                 ], className = 'hover_only_row'),
 
                 html.Tr([
-                    html.Td(html.P('4', style = {'textAlign': 'left',
+                    html.Td(html.P('4', style = {'textAlign': 'center',
                                                  'color': 'black',
                                                  'fontSize': 12,
                                                  'margin-top': '10px',
@@ -1080,7 +1063,7 @@ def update_graph(n_intervals):
                         html.Img(src = app.get_asset_url('binance.png'),
                                  style = {'height': '30px'},
                                  className = 'image'),
-                        html.P('Binance Coin', style = {'margin-left': '-25px'},
+                        html.P('Binance Coin',
                                className = 'logo_text')
                     ], className = 'logo_image'),
                     ),
@@ -1114,7 +1097,7 @@ def update_graph(n_intervals):
                 ], className = 'hover_only_row'),
 
                 html.Tr([
-                    html.Td(html.P('5', style = {'textAlign': 'left',
+                    html.Td(html.P('5', style = {'textAlign': 'center',
                                                  'color': 'black',
                                                  'fontSize': 12,
                                                  'margin-top': '10px',
@@ -1124,7 +1107,7 @@ def update_graph(n_intervals):
                         html.Img(src = app.get_asset_url('bitcoincash.png'),
                                  style = {'height': '30px'},
                                  className = 'image'),
-                        html.P('Bitcoin Cash', style = {'margin-left': '-23px'},
+                        html.P('Bitcoin Cash',
                                className = 'logo_text')
                     ], className = 'logo_image'),
                     ),
