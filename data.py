@@ -3,6 +3,8 @@ from urllib.request import Request, urlopen
 import time
 import csv
 from datetime import datetime
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
 
 
 i = 1
@@ -56,18 +58,18 @@ while i == 1:
     ethereum_change = ethereum_row['Change (24h) %'][1]
     ethereum_market_cap = ethereum_row['Market Cap.'][1]
 
-    binance_row = df[0].loc[[4]]
-    binance_currency = binance_row['CryptoCurrency'][4]
-    binance_price = binance_row['Price'][4]
-    binance_change = binance_row['Change (24h) %'][4]
-    binance_market_cap = binance_row['Market Cap.'][4]
+    binance_row = df[0].loc[[2]]
+    binance_currency = binance_row['CryptoCurrency'][2]
+    binance_price = binance_row['Price'][2]
+    binance_change = binance_row['Change (24h) %'][2]
+    binance_market_cap = binance_row['Market Cap.'][2]
     # print(df[0].head(30))
 
-    bitcoincash_row = df[0].loc[[13]]
-    bitcoincash_currency = bitcoincash_row['CryptoCurrency'][13]
-    bitcoincash_price = bitcoincash_row['Price'][13]
-    bitcoincash_change = bitcoincash_row['Change (24h) %'][13]
-    bitcoincash_market_cap = bitcoincash_row['Market Cap.'][13]
+    bitcoincash_row = df[0].loc[[18]]
+    bitcoincash_currency = bitcoincash_row['CryptoCurrency'][18]
+    bitcoincash_price = bitcoincash_row['Price'][18]
+    bitcoincash_change = bitcoincash_row['Change (24h) %'][18]
+    bitcoincash_market_cap = bitcoincash_row['Market Cap.'][18]
     # print(df[0].head(30))
 
     chainlink_row = df[0].loc[[12]]
@@ -79,7 +81,7 @@ while i == 1:
     with open("bitcoin_data.csv", "a") as f:
         writer = csv.writer(f, delimiter = ",")
         writer.writerow([dt_string, bitcoin_currency, bitcoin_price, bitcoin_change, bitcoin_market_cap])
-        # print(dt_string, bitcoin_currency, bitcoin_price, bitcoin_change, bitcoin_market_cap)
+        print(dt_string, bitcoin_currency, bitcoin_price, bitcoin_change, bitcoin_market_cap)
     with open("ethereum_data.csv", "a") as f:
         writer = csv.writer(f, delimiter = ",")
         writer.writerow([dt_string, ethereum_currency, ethereum_price, ethereum_change, ethereum_market_cap])
