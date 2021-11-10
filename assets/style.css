@@ -1,6 +1,6 @@
 body {
     margin: 0;
-
+    background-color: rgb(34, 37, 49);
 }
 
 .title_image {
@@ -36,15 +36,15 @@ body {
 .title_date_time_container {
   display: flex;
   flex-wrap: wrap;
-  background-color: #006fe6;
+  background-color: rgb(23,25,36);
 }
 
 .adjust_first_card {
   width: 340px;
-  border-radius: 0px;
-  background: rgb(255, 255, 255);
+  border-radius: 8px;
+  background-color: rgb(50, 53, 70);
   height: 115px;
-  box-shadow: 2px 2px 16px 2px lightgrey;
+  box-shadow:  0px 0px 1px 0px rgb(88, 102, 126);
 }
 
 .first_card_column {
@@ -55,10 +55,10 @@ body {
 
 .adjust_second_card {
   width: 340px;
-  border-radius: 0px;
-  background: rgb(255, 255, 255);
+  border-radius: 8px;
+  background-color: rgb(50, 53, 70);
   height: 115px;
-  box-shadow: 2px 2px 16px 2px lightgrey;
+  box-shadow:  0px 0px 1px 0px rgb(88 102 126);
 }
 
 .second_card_column {
@@ -69,10 +69,10 @@ body {
 
 .adjust_third_card {
   width: 340px;
-  border-radius: 0px;
-  background: rgb(255, 255, 255);
+  border-radius: 8px;
+  background-color: rgb(50, 53, 70);
   height: 115px;
-  box-shadow: 2px 2px 16px 2px lightgrey;
+  box-shadow:  0px 0px 1px 0px rgb(88 102 126);
 }
 
 .third_card_column {
@@ -83,10 +83,10 @@ body {
 
 .adjust_fourth_card {
   width: 340px;
-  border-radius: 0px;
-  background: rgb(255, 255, 255);
+  border-radius: 8px;
+  background-color: rgb(50, 53, 70);
   height: 115px;
-  box-shadow: 2px 2px 16px 2px lightgrey;
+  box-shadow:  0px 0px 1px 0px rgb(88 102 126);
 }
 
 .fourth_card_column {
@@ -204,6 +204,7 @@ body {
   display: flex;
   flex-direction: row;
   margin-top: 5px;
+  color: white;
 }
 
 .logo_image {
@@ -214,16 +215,18 @@ body {
 
 .table_width {
   border-radius: 0px;
-  background: rgb(255, 255, 255);
+  background-color: rgb(50, 53, 70);
   width: 700px;
-  box-shadow: 2px 2px 16px 2px lightgrey;
+  /*height: 400px;*/
+  box-shadow: 0px 0px 1px 0px rgb(88 102 126);
 }
 
 .chart_width {
   border-radius: 0px;
-  background: rgb(255, 255, 255);
+  background: rgb(50, 53, 70);
   width: 700px;
-  box-shadow: 2px 2px 16px 2px lightgrey;
+  /*height: 400px;*/
+  box-shadow: 0px 0px 1px 0px rgb(88 102 126);
 }
 
 .table_chart_container {
@@ -238,33 +241,33 @@ body {
 }
 
 .adjust_first_card:hover {
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0px 0px 0px 0px lightgrey;
+  background-color: rgb(23,25,36);
+  box-shadow: 0px 0px 1px 0px #282b3e;
 }
 
 .adjust_second_card:hover {
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0px 0px 0px 0px lightgrey;
+  background-color: rgb(23,25,36);
+  box-shadow: 0px 0px 1px 0px #282b3e;
 }
 
 .adjust_third_card:hover {
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0px 0px 0px 0px lightgrey;
+  background-color: rgb(23,25,36);
+  box-shadow: 0px 0px 1px 0px #282b3e;
 }
 
 .adjust_fourth_card:hover {
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0px 0px 0px 0px lightgrey;
+  background-color: rgb(23,25,36);
+  box-shadow: 0px 0px 1px 0px #282b3e;
 }
 
 .table_width:hover {
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0px 0px 0px 0px lightgrey;
+  background-color: rgb(23,25,36);
+  box-shadow: 0px 0px 1px 0px #282b3e;
 }
 
 .chart_width:hover {
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0px 0px 0px 0px lightgrey;
+  background-color: rgb(23,25,36);
+  box-shadow: 0px 0px 1px 0px #282b3e;
 }
 
 .table_style {
@@ -274,28 +277,28 @@ body {
 
 .table_style Thead, .table_style Th, .table_style Td {
    border: 1px solid #dddd;
-   padding: 7px;
+   /*padding: 7px;*/
 }
 
 .table_style Thead {
   padding-top: 11px;
   padding-bottom: 11px;
   text-align: left;
-  background-color: #006fe6;
+  background-color: rgb(23,25,36);
   color: white;
 }
 
 .hover_only_row:nth-child(even){
-   background-color: white;
+   background-color: rgb(50, 53, 70);
 }
 
 .header_hover:hover {
-   background-color: #9038D5;
+   background-color: rgb(50, 53, 70);
    color: white;
 }
 
 .hover_only_row:hover {
-   background-color: #dddd;
+   background-color: rgb(23,25,36);
 }
 
 #mainContainer {

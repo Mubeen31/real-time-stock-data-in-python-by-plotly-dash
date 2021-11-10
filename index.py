@@ -113,7 +113,7 @@ def update_graph(n_intervals):
             html.Div([
                 html.P('Bitcoin',
                        style = {
-                           'color': 'Black',
+                           'color': 'White',
                            'fontSize': 17,
                        },
                        className = 'coin_name'
@@ -136,7 +136,7 @@ def update_graph(n_intervals):
                     ], className = 'adjust_price_and_coin'),
                     html.P('${0:,.0f}'.format(bitcoin_price),
                            style = {
-                               'color': '#808080',
+                               'color': '#e6e6e6',
                                'fontSize': 14,
                            }, className = 'right_price_value'
                            ),
@@ -149,7 +149,7 @@ def update_graph(n_intervals):
             html.Div([
                 html.P('Bitcoin',
                        style = {
-                           'color': 'Black',
+                           'color': 'white',
                            'fontSize': 17,
                        },
                        className = 'coin_name'
@@ -172,7 +172,7 @@ def update_graph(n_intervals):
                     ], className = 'adjust_price_and_coin'),
                     html.P('${0:,.0f}'.format(bitcoin_price),
                            style = {
-                               'color': '#808080',
+                               'color': '#e6e6e6',
                                'fontSize': 14,
                            }, className = 'right_price_value'
                            ),
@@ -184,7 +184,7 @@ def update_graph(n_intervals):
             html.Div([
                 html.P('Bitcoin',
                        style = {
-                           'color': 'Black',
+                           'color': 'white',
                            'fontSize': 17,
                        },
                        className = 'coin_name'
@@ -192,14 +192,14 @@ def update_graph(n_intervals):
                 html.Div([
                     html.H6('{0:,.2f}'.format(bitcoin_price),
                             style = {
-                                'color': 'black',
+                                'color': 'white',
                                 'font-weight': 'bold'
                             }, className = 'coin_price'
                             ),
 
                     html.P('${0:,.0f}'.format(bitcoin_price),
                            style = {
-                               'color': '#808080',
+                               'color': '#e6e6e6',
                                'fontSize': 14,
                            }, className = 'right_price_value'
                            ),
@@ -237,7 +237,7 @@ def update_graph(n_intervals):
                 ], className = 'difference_row'),
                 html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                        style = {
-                           'color': '#808080',
+                           'color': '#e6e6e6',
                            'fontSize': 12,
                        }, className = 'cap_right_value'
                        ),
@@ -264,7 +264,7 @@ def update_graph(n_intervals):
                 ], className = 'difference_row'),
                 html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                        style = {
-                           'color': '#808080',
+                           'color': '#e6e6e6',
                            'fontSize': 12,
                        }, className = 'cap_right_value'
                        ),
@@ -275,14 +275,14 @@ def update_graph(n_intervals):
             html.Div([
                 html.H6('{0:,.2f}%'.format(change_24h),
                         style = {
-                            'color': 'black',
+                            'color': 'white',
                             'fontSize': 12,
                             'font-weight': 'bold'
                         }, className = 'price_difference'
                         ),
                 html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                        style = {
-                           'color': '#808080',
+                           'color': '#e6e6e6',
                            'fontSize': 12,
                        }, className = 'cap_right_value'
                        ),
@@ -306,7 +306,7 @@ def update_graph(n_intervals):
             html.Div([
                 html.P('Ethereum',
                        style = {
-                           'color': 'Black',
+                           'color': 'white',
                            'fontSize': 17,
                        },
                        className = 'coin_name'
@@ -329,7 +329,7 @@ def update_graph(n_intervals):
                     ], className = 'adjust_price_and_coin'),
                     html.P('${0:,.0f}'.format(ethereum_price),
                            style = {
-                               'color': '#808080',
+                               'color': '#e6e6e6',
                                'fontSize': 14,
                            }, className = 'right_price_value'
                            ),
@@ -342,7 +342,7 @@ def update_graph(n_intervals):
             html.Div([
                 html.P('Ethereum',
                        style = {
-                           'color': 'Black',
+                           'color': 'white',
                            'fontSize': 17,
                        },
                        className = 'coin_name'
@@ -365,7 +365,7 @@ def update_graph(n_intervals):
                     ], className = 'adjust_price_and_coin'),
                     html.P('${0:,.0f}'.format(ethereum_price),
                            style = {
-                               'color': '#808080',
+                               'color': '#e6e6e6',
                                'fontSize': 14,
                            }, className = 'right_price_value'
                            ),
@@ -377,7 +377,7 @@ def update_graph(n_intervals):
             html.Div([
                 html.P('Ethereum',
                        style = {
-                           'color': 'Black',
+                           'color': 'white',
                            'fontSize': 17,
                        },
                        className = 'coin_name'
@@ -385,14 +385,14 @@ def update_graph(n_intervals):
                 html.Div([
                     html.H6('{0:,.2f}'.format(ethereum_price),
                             style = {
-                                'color': 'black',
+                                'color': 'white',
                                 'font-weight': 'bold'
                             }, className = 'coin_price'
                             ),
 
                     html.P('${0:,.0f}'.format(ethereum_price),
                            style = {
-                               'color': '#808080',
+                               'color': '#e6e6e6',
                                'fontSize': 14,
                            }, className = 'right_price_value'
                            ),
@@ -430,7 +430,7 @@ def update_graph(n_intervals):
                 ], className = 'difference_row'),
                 html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                        style = {
-                           'color': '#808080',
+                           'color': '#e6e6e6',
                            'fontSize': 12,
                        }, className = 'cap_right_value'
                        ),
@@ -457,7 +457,7 @@ def update_graph(n_intervals):
                 ], className = 'difference_row'),
                 html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                        style = {
-                           'color': '#808080',
+                           'color': '#e6e6e6',
                            'fontSize': 12,
                        }, className = 'cap_right_value'
                        ),
@@ -468,14 +468,14 @@ def update_graph(n_intervals):
             html.Div([
                 html.H6('{0:,.2f}%'.format(change_24h),
                         style = {
-                            'color': 'black',
+                            'color': 'white',
                             'fontSize': 12,
                             'font-weight': 'bold'
                         }, className = 'price_difference'
                         ),
                 html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                        style = {
-                           'color': '#808080',
+                           'color': '#e6e6e6',
                            'fontSize': 12,
                        }, className = 'cap_right_value'
                        ),
@@ -498,7 +498,7 @@ def update_graph(n_intervals):
             html.Div([
                 html.P('Binance Coin',
                        style = {
-                           'color': 'Black',
+                           'color': 'white',
                            'fontSize': 17,
                        },
                        className = 'coin_name'
@@ -521,7 +521,7 @@ def update_graph(n_intervals):
                     ], className = 'adjust_price_and_coin'),
                     html.P('${0:,.0f}'.format(binance_price),
                            style = {
-                               'color': '#808080',
+                               'color': '#e6e6e6',
                                'fontSize': 14,
                            }, className = 'right_price_value'
                            ),
@@ -534,7 +534,7 @@ def update_graph(n_intervals):
             html.Div([
                 html.P('Binance Coin',
                        style = {
-                           'color': 'Black',
+                           'color': 'white',
                            'fontSize': 17,
                        },
                        className = 'coin_name'
@@ -557,7 +557,7 @@ def update_graph(n_intervals):
                     ], className = 'adjust_price_and_coin'),
                     html.P('${0:,.0f}'.format(binance_price),
                            style = {
-                               'color': '#808080',
+                               'color': '#e6e6e6',
                                'fontSize': 14,
                            }, className = 'right_price_value'
                            ),
@@ -569,7 +569,7 @@ def update_graph(n_intervals):
             html.Div([
                 html.P('Binance Coin',
                        style = {
-                           'color': 'Black',
+                           'color': 'white',
                            'fontSize': 17,
                        },
                        className = 'coin_name'
@@ -577,14 +577,14 @@ def update_graph(n_intervals):
                 html.Div([
                     html.H6('{0:,.2f}'.format(binance_price),
                             style = {
-                                'color': 'black',
+                                'color': 'white',
                                 'font-weight': 'bold'
                             }, className = 'coin_price'
                             ),
 
                     html.P('${0:,.0f}'.format(binance_price),
                            style = {
-                               'color': '#808080',
+                               'color': '#e6e6e6',
                                'fontSize': 14,
                            }, className = 'right_price_value'
                            ),
@@ -622,7 +622,7 @@ def update_graph(n_intervals):
                 ], className = 'difference_row'),
                 html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                        style = {
-                           'color': '#808080',
+                           'color': '#e6e6e6',
                            'fontSize': 12,
                        }, className = 'cap_right_value'
                        ),
@@ -649,7 +649,7 @@ def update_graph(n_intervals):
                 ], className = 'difference_row'),
                 html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                        style = {
-                           'color': '#808080',
+                           'color': '#e6e6e6',
                            'fontSize': 12,
                        }, className = 'cap_right_value'
                        ),
@@ -660,14 +660,14 @@ def update_graph(n_intervals):
             html.Div([
                 html.H6('{0:,.2f}%'.format(change_24h),
                         style = {
-                            'color': 'black',
+                            'color': 'white',
                             'fontSize': 12,
                             'font-weight': 'bold'
                         }, className = 'price_difference'
                         ),
                 html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                        style = {
-                           'color': '#808080',
+                           'color': '#e6e6e6',
                            'fontSize': 12,
                        }, className = 'cap_right_value'
                        ),
@@ -690,7 +690,7 @@ def update_graph(n_intervals):
             html.Div([
                 html.P('Bitcoin Cash',
                        style = {
-                           'color': 'Black',
+                           'color': 'white',
                            'fontSize': 17,
                        },
                        className = 'coin_name'
@@ -713,7 +713,7 @@ def update_graph(n_intervals):
                     ], className = 'adjust_price_and_coin'),
                     html.P('${0:,.0f}'.format(bitcoincash_price),
                            style = {
-                               'color': '#808080',
+                               'color': '#e6e6e6',
                                'fontSize': 14,
                            }, className = 'right_price_value'
                            ),
@@ -726,7 +726,7 @@ def update_graph(n_intervals):
             html.Div([
                 html.P('Bitcoin Cash',
                        style = {
-                           'color': 'Black',
+                           'color': 'white',
                            'fontSize': 17,
                        },
                        className = 'coin_name'
@@ -749,7 +749,7 @@ def update_graph(n_intervals):
                     ], className = 'adjust_price_and_coin'),
                     html.P('${0:,.0f}'.format(bitcoincash_price),
                            style = {
-                               'color': '#808080',
+                               'color': '#e6e6e6',
                                'fontSize': 14,
                            }, className = 'right_price_value'
                            ),
@@ -761,7 +761,7 @@ def update_graph(n_intervals):
             html.Div([
                 html.P('Bitcoin Cash',
                        style = {
-                           'color': 'Black',
+                           'color': 'white',
                            'fontSize': 17,
                        },
                        className = 'coin_name'
@@ -769,14 +769,14 @@ def update_graph(n_intervals):
                 html.Div([
                     html.H6('{0:,.2f}'.format(bitcoincash_price),
                             style = {
-                                'color': 'black',
+                                'color': 'white',
                                 'font-weight': 'bold'
                             }, className = 'coin_price'
                             ),
 
                     html.P('${0:,.0f}'.format(bitcoincash_price),
                            style = {
-                               'color': '#808080',
+                               'color': '#e6e6e6',
                                'fontSize': 14,
                            }, className = 'right_price_value'
                            ),
@@ -814,7 +814,7 @@ def update_graph(n_intervals):
                 ], className = 'difference_row'),
                 html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                        style = {
-                           'color': '#808080',
+                           'color': '#e6e6e6',
                            'fontSize': 12,
                        }, className = 'cap_right_value'
                        ),
@@ -841,7 +841,7 @@ def update_graph(n_intervals):
                 ], className = 'difference_row'),
                 html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                        style = {
-                           'color': '#808080',
+                           'color': '#e6e6e6',
                            'fontSize': 12,
                        }, className = 'cap_right_value'
                        ),
@@ -852,14 +852,14 @@ def update_graph(n_intervals):
             html.Div([
                 html.H6('{0:,.2f}%'.format(change_24h),
                         style = {
-                            'color': 'black',
+                            'color': 'white',
                             'fontSize': 12,
                             'font-weight': 'bold'
                         }, className = 'price_difference'
                         ),
                 html.P('Cap:' + '${0:,.0f}'.format(market_cap),
                        style = {
-                           'color': '#808080',
+                           'color': '#e6e6e6',
                            'fontSize': 12,
                        }, className = 'cap_right_value'
                        ),
@@ -921,7 +921,7 @@ def update_graph(n_intervals):
             html.Tbody([
                 html.Tr([
                     html.Td(html.P('1', style = {'textAlign': 'center',
-                                                 'color': 'black',
+                                                 'color': 'white',
                                                  'fontSize': 12,
                                                  'margin-top': '10px',
                                                  }),
@@ -938,7 +938,7 @@ def update_graph(n_intervals):
                     html.Td(
                         html.H6('${0:,.2f}'.format(chainlink_price),
                                 style = {'textAlign': 'left',
-                                         'color': 'black',
+                                         'color': 'white',
                                          'margin-top': '10px',
                                          'fontSize': 12,
                                          }
@@ -948,7 +948,7 @@ def update_graph(n_intervals):
                     html.Td(
                             html.H6('{0:,.2f}%'.format(chainlink_change_24h),
                                     style = {'textAlign': 'left',
-                                             'color': 'black',
+                                             'color': 'white',
                                              'margin-top': '10px',
                                              'fontSize': 12,
                                              }
@@ -957,7 +957,7 @@ def update_graph(n_intervals):
                     html.Td(
                         html.P('${0:,.0f}'.format(chainlink_market_cap),
                                style = {'textAlign': 'left',
-                                        'color': 'black',
+                                        'color': 'white',
                                         'fontSize': 12,
                                         'margin-top': '10px',
                                         }),
@@ -966,7 +966,7 @@ def update_graph(n_intervals):
 
                 html.Tr([
                     html.Td(html.P('2', style = {'textAlign': 'center',
-                                                 'color': 'black',
+                                                 'color': 'white',
                                                  'fontSize': 12,
                                                  'margin-top': '10px',
                                                  }),
@@ -982,7 +982,7 @@ def update_graph(n_intervals):
                     html.Td(
                         html.H6('${0:,.2f}'.format(bitcoin_price),
                                 style = {'textAlign': 'left',
-                                         'color': 'black',
+                                         'color': 'white',
                                          'margin-top': '10px',
                                          'fontSize': 12,
                                          }
@@ -992,7 +992,7 @@ def update_graph(n_intervals):
                     html.Td(
                         html.H6('{0:,.2f}%'.format(bitcoin_change_24h),
                                 style = {'textAlign': 'left',
-                                         'color': 'black',
+                                         'color': 'white',
                                          'margin-top': '10px',
                                          'fontSize': 12,
                                          }
@@ -1001,7 +1001,7 @@ def update_graph(n_intervals):
                     html.Td(
                         html.P('${0:,.0f}'.format(bitcoin_market_cap),
                                style = {'textAlign': 'left',
-                                        'color': 'black',
+                                        'color': 'white',
                                         'fontSize': 12,
                                         'margin-top': '10px',
                                         }),
@@ -1010,7 +1010,7 @@ def update_graph(n_intervals):
 
                 html.Tr([
                     html.Td(html.P('3', style = {'textAlign': 'center',
-                                                 'color': 'black',
+                                                 'color': 'white',
                                                  'fontSize': 12,
                                                  'margin-top': '10px',
                                                  }),
@@ -1026,7 +1026,7 @@ def update_graph(n_intervals):
                     html.Td(
                         html.H6('${0:,.2f}'.format(ethereum_price),
                                 style = {'textAlign': 'left',
-                                         'color': 'black',
+                                         'color': 'white',
                                          'margin-top': '10px',
                                          'fontSize': 12,
                                          }
@@ -1036,7 +1036,7 @@ def update_graph(n_intervals):
                     html.Td(
                         html.H6('{0:,.2f}%'.format(ethereum_change_24h),
                                 style = {'textAlign': 'left',
-                                         'color': 'black',
+                                         'color': 'white',
                                          'margin-top': '10px',
                                          'fontSize': 12,
                                          }
@@ -1045,7 +1045,7 @@ def update_graph(n_intervals):
                     html.Td(
                         html.P('${0:,.0f}'.format(ethereum_market_cap),
                                style = {'textAlign': 'left',
-                                        'color': 'black',
+                                        'color': 'white',
                                         'fontSize': 12,
                                         'margin-top': '10px',
                                         }),
@@ -1054,7 +1054,7 @@ def update_graph(n_intervals):
 
                 html.Tr([
                     html.Td(html.P('4', style = {'textAlign': 'center',
-                                                 'color': 'black',
+                                                 'color': 'white',
                                                  'fontSize': 12,
                                                  'margin-top': '10px',
                                                  }),
@@ -1070,7 +1070,7 @@ def update_graph(n_intervals):
                     html.Td(
                         html.H6('${0:,.2f}'.format(binancecoin_price),
                                 style = {'textAlign': 'left',
-                                         'color': 'black',
+                                         'color': 'white',
                                          'margin-top': '10px',
                                          'fontSize': 12,
                                          }
@@ -1080,7 +1080,7 @@ def update_graph(n_intervals):
                     html.Td(
                         html.H6('{0:,.2f}%'.format(binancecoin_change_24h),
                                 style = {'textAlign': 'left',
-                                         'color': 'black',
+                                         'color': 'white',
                                          'margin-top': '10px',
                                          'fontSize': 12,
                                          }
@@ -1089,7 +1089,7 @@ def update_graph(n_intervals):
                     html.Td(
                         html.P('${0:,.0f}'.format(binancecoin_market_cap),
                                style = {'textAlign': 'left',
-                                        'color': 'black',
+                                        'color': 'white',
                                         'fontSize': 12,
                                         'margin-top': '10px',
                                         }),
@@ -1098,7 +1098,7 @@ def update_graph(n_intervals):
 
                 html.Tr([
                     html.Td(html.P('5', style = {'textAlign': 'center',
-                                                 'color': 'black',
+                                                 'color': 'white',
                                                  'fontSize': 12,
                                                  'margin-top': '10px',
                                                  }),
@@ -1114,7 +1114,7 @@ def update_graph(n_intervals):
                     html.Td(
                         html.H6('${0:,.2f}'.format(bitcoincash_price),
                                 style = {'textAlign': 'left',
-                                         'color': 'black',
+                                         'color': 'white',
                                          'margin-top': '10px',
                                          'fontSize': 12,
                                          }
@@ -1124,7 +1124,7 @@ def update_graph(n_intervals):
                     html.Td(
                         html.H6('{0:,.2f}%'.format(bitcoincash_change_24h),
                                 style = {'textAlign': 'left',
-                                         'color': 'black',
+                                         'color': 'white',
                                          'margin-top': '10px',
                                          'fontSize': 12,
                                          }
@@ -1133,7 +1133,7 @@ def update_graph(n_intervals):
                     html.Td(
                         html.P('${0:,.0f}'.format(bitcoincash_market_cap),
                                style = {'textAlign': 'left',
-                                        'color': 'black',
+                                        'color': 'white',
                                         'fontSize': 12,
                                         'margin-top': '10px',
                                         }),
@@ -1173,8 +1173,8 @@ def update_graph(n_intervals):
         'layout': go.Layout(
             # paper_bgcolor = 'rgba(0,0,0,0)',
             # plot_bgcolor = 'rgba(0,0,0,0)',
-            plot_bgcolor = 'rgba(255, 255, 255, 0.0)',
-            paper_bgcolor = 'rgba(255, 255, 255, 0.0)',
+            plot_bgcolor = 'rgba(50, 53, 70, 0.0)',
+            paper_bgcolor = 'rgba(50, 53, 70, 0.0)',
             title = {
                 'text': 'Bitcoin Price',
 
@@ -1183,7 +1183,7 @@ def update_graph(n_intervals):
                 'xanchor': 'center',
                 'yanchor': 'top'},
             titlefont = {
-                'color': 'black',
+                'color': 'white',
                 'size': 17},
 
             hovermode = 'x unified',
@@ -1191,47 +1191,47 @@ def update_graph(n_intervals):
 
             xaxis = dict(range = [min(time_interval), max(time_interval)],
                          title = '<b>Time</b>',
-                         color = 'black',
+                         color = 'white',
                          showspikes=True,
                          showline = True,
                          showgrid = False,
-                         linecolor = 'black',
+                         linecolor = 'white',
                          linewidth = 1,
                          ticks = 'outside',
                          tickfont = dict(
                              family = 'Arial',
                              size = 12,
-                             color = 'black')
+                             color = 'white')
 
                          ),
 
             yaxis = dict(
                          title = '<b></b>',
-                         color = 'black',
-                         showspikes=False,
+                         color = 'white',
+                         showspikes= False,
                          showline = True,
-                         showgrid = True,
-                         linecolor = 'black',
+                         showgrid = False,
+                         linecolor = 'white',
                          linewidth = 1,
                          ticks = 'outside',
                          tickfont = dict(
                              family = 'Arial',
                              size = 12,
-                             color = 'black')
+                             color = 'white')
 
                          ),
 
-            legend = {
-                'orientation': 'h',
-                'bgcolor': '#F2F2F2',
-                'x': 0.5,
-                'y': 1.25,
-                'xanchor': 'center',
-                'yanchor': 'top'},
+            # legend = {
+            #     'orientation': 'h',
+            #     'bgcolor': '#F2F2F2',
+            #     'x': 0.5,
+            #     'y': 1.25,
+            #     'xanchor': 'center',
+            #     'yanchor': 'top'},
             font = dict(
                 family = "sans-serif",
                 size = 12,
-                color = 'black')
+                color = 'white')
 
         )
 
