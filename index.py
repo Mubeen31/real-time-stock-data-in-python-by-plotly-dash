@@ -77,7 +77,7 @@ app.layout = html.Div([
             html.Div([
                 dcc.Graph(id = 'bitcoin_chart',
                           animate = True,
-                          config = {'displayModeBar': 'hover'},
+                          config = {'displayModeBar': False},
                           className = 'chart_width'),
                 html.Div(id = 'text_on_chart'),
             ], className = 'over_ride_text_on_chart')
