@@ -590,9 +590,11 @@ there.
 .crypto_column {
   width: 310px !important;
 }
-  .container-display {
-    display: flex;
-  }
+
+.adjust_text_numeric_and_time {
+   margin-left: -390px !important;
+}
+
 
   h3 {
     font-size: 2.5rem;

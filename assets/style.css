@@ -19,7 +19,7 @@ body {
    display: flex;
    flex-direction: row;
    gap: 5px;
-   margin-left: 5px;
+   margin-left: 10px;
    margin-top: 3px;
    flex: 6;
 }
@@ -237,7 +237,7 @@ body {
 }
 
 .adjust_table_chart_margin {
-   margin-top: 10px;
+   margin-top: 20px;
 }
 
 .adjust_first_card:hover {
@@ -301,7 +301,36 @@ body {
    background-color: rgb(23,25,36);
 }
 
-#mainContainer {
-  display: flex;
-  flex-direction: column;
+.text_value {
+   display: flex;
+   flex-direction: row;
+}
+
+.numeric_value {
+   display: flex;
+   flex-direction: row;
+}
+
+.adjust_text_and_numeric {
+   display: flex;
+   flex-direction: row;
+   gap: 7px;
+}
+
+.time_value {
+   display: flex;
+   flex-direction: row;
+}
+
+.adjust_text_numeric_and_time {
+   display: flex;
+   flex-direction: row;
+   gap: 2px;
+   margin-left: -500px;
+   margin-top: 5px;
+}
+
+.over_ride_text_on_chart {
+   display: flex;
+   flex-direction: row;
 }

@@ -74,15 +74,16 @@ app.layout = html.Div([
         html.Div([
             html.Div(id = 'table_data',
                      className = 'table_width'),
-            dcc.Graph(id = 'bitcoin_chart',
-                      animate = True,
-                      config = {'displayModeBar': 'hover'},
-                      className = 'chart_width'),
+            html.Div([
+                dcc.Graph(id = 'bitcoin_chart',
+                          animate = True,
+                          config = {'displayModeBar': 'hover'},
+                          className = 'chart_width'),
+                html.Div(id = 'text_on_chart'),
+            ], className = 'over_ride_text_on_chart')
         ], className = "table_chart_container")
     ], className = 'adjust_table_chart_margin')
-
-], id= "mainContainer",
-   style={"display": "flex", "flex-direction": "column"})
+])
 
 @app.callback(Output('get_date_time', 'children'),
               [Input('update_date_time', 'n_intervals')])
@@ -1157,8 +1158,10 @@ def update_graph(n_intervals):
         'data': [go.Scatter(
             x = time_interval,
             y = bitcoin_price,
+            fill = 'tonexty',
+            fillcolor = 'rgba(255, 0, 255, 0.1)',
             mode = 'lines',
-            line = dict(width = 2, color = '#EC1E3D '),
+            line = dict(width = 2, color = '#ff00ff'),
             # marker = dict(size = 7, symbol = 'circle', color = '#D35400',
             #               line = dict(color = '#D35400', width = 2)
             #               ),
@@ -1168,15 +1171,16 @@ def update_graph(n_intervals):
             '<b>Time</b>: ' + time_interval.astype(str) + '<br>' +
             '<b>Bitcoin Price</b>: ' + [f'${x:,.2f}' for x in bitcoin_price] + '<br>'
 
+
         )],
 
         'layout': go.Layout(
             # paper_bgcolor = 'rgba(0,0,0,0)',
             # plot_bgcolor = 'rgba(0,0,0,0)',
-            plot_bgcolor = 'rgba(50, 53, 70, 0.0)',
-            paper_bgcolor = 'rgba(50, 53, 70, 0.0)',
+            plot_bgcolor = 'rgba(50, 53, 70, 0)',
+            paper_bgcolor = 'rgba(50, 53, 70, 0)',
             title = {
-                'text': 'Bitcoin Price',
+                'text': '',
 
                 'y': 0.97,
                 'x': 0.5,
@@ -1205,7 +1209,7 @@ def update_graph(n_intervals):
 
                          ),
 
-            yaxis = dict(
+            yaxis = dict(range = [min(bitcoin_price) - 3, max(bitcoin_price) + 5],
                          title = '<b></b>',
                          color = 'white',
                          showspikes= False,
@@ -1236,6 +1240,46 @@ def update_graph(n_intervals):
         )
 
             }
+
+@app.callback(Output('text_on_chart', 'children'),
+              [Input('update_value', 'n_intervals')])
+def update_graph(n_intervals):
+    header_list = ['Time', 'CryptoCurrency', 'Price', 'price_difference', 'Change (24h) %', 'Market Cap.']
+    bitcoin_df = pd.read_csv('bitcoin_data.csv', names = header_list)
+    bitcoin_price = bitcoin_df['Price'].tail(1).iloc[0]
+    time_value = bitcoin_df['Time'].tail(1).iloc[0]
+    if n_intervals == 0:
+        raise PreventUpdate
+
+    return [
+        html.Div([
+            html.Div([
+                html.P('Bitcoin Price - ',
+                       style = {
+                           'color': 'white',
+                           'font-weight': 'bold',
+                           'fontSize': 15,
+                       },
+                       className = 'text_value'
+                       ),
+
+                html.P('${0:,.2f}'.format(bitcoin_price),
+                       style = {
+                           'color': '#ff00ff',
+                           'font-weight': 'bold',
+                           'fontSize': 15,
+                       }, className = 'numeric_value'
+                       ),
+            ], className = 'adjust_text_and_numeric'),
+            html.P('(' + time_value + ')',
+                   style = {
+                       'color': 'white',
+                       'fontSize': 14,
+                   }, className = 'time_value'
+                   ),
+        ], className = 'adjust_text_numeric_and_time'),
+    ]
+
 
 if __name__ == "__main__":
     app.run_server(debug = True)
