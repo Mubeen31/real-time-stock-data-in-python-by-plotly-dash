@@ -82,7 +82,13 @@ app.layout = html.Div([
                 html.Div(id = 'text_on_chart'),
             ], className = 'over_ride_text_on_chart')
         ], className = "table_chart_container")
-    ], className = 'adjust_table_chart_margin')
+    ], className = 'adjust_table_chart_margin'),
+
+    html.Div([
+        html.Footer(
+            'Note:- This demo is just for educational purposes and above data is not for profit and building a wallet for users.',
+            className = 'footer_text')
+    ], className = 'footer_content')
 ])
 
 @app.callback(Output('get_date_time', 'children'),

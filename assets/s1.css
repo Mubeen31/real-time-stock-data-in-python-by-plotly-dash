@@ -595,6 +595,10 @@ there.
    margin-left: -390px !important;
 }
 
+.footer_text{
+   width: 470px !important;
+}
+
 
   h3 {
     font-size: 2.5rem;
