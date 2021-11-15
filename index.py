@@ -86,7 +86,7 @@ app.layout = html.Div([
 
     html.Div([
         html.Footer(
-            'Note:- This demo is just for educational purposes and above data is not for profit and building a wallet for users.',
+            'Note:- This demo is just a sample that shows how to display real time data in python  and above data is not for profit and building a wallet for users.',
             className = 'footer_text')
     ], className = 'footer_content')
 ])
@@ -111,8 +111,9 @@ def update_graph(n_intervals):
     if n_intervals == 0:
         raise PreventUpdate
     else:
-        header_list = ['Time', 'CryptoCurrency', 'Price', 'price_difference', 'Change (24h) %', 'Market Cap.']
+        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'price_difference', 'Change (24h) %', 'Market Cap.']
         bitcoin_df = pd.read_csv('bitcoin_data.csv', names = header_list)
+        bitcoin_rank = bitcoin_df['Rank'][0]
         bitcoin_df['price_difference'] = bitcoin_df['Price'].diff()
         price_difference = bitcoin_df['price_difference'].tail(1).iloc[0]
         bitcoin_price = bitcoin_df['Price'].tail(1).iloc[0]
@@ -121,13 +122,26 @@ def update_graph(n_intervals):
     if price_difference > 0:
         return [
             html.Div([
-                html.P('Bitcoin',
-                       style = {
-                           'color': 'White',
-                           'fontSize': 17,
-                       },
-                       className = 'coin_name'
-                       ),
+                html.Div([
+                    html.Div([
+                        html.Img(src = app.get_asset_url('bitcoin.png'),
+                                 style = {'height': '30px'},
+                                 className = 'coin'),
+                        html.P('Bitcoin',
+                               style = {
+                                   'color': 'white',
+                                   'fontSize': 17,
+                               },
+                               className = 'coin_name'
+                               )
+                    ], className = 'coin_image'),
+                    html.P('Rank: ' + '{0:,.0f}'.format(bitcoin_rank),
+                           style = {
+                               'color': 'white',
+                               'fontSize': 14,
+                           }, className = 'rank'
+                           ),
+                ], className = 'coin_rank'),
                 html.Div([
                     html.Div([
                         html.H6('{0:,.2f}'.format(bitcoin_price),
@@ -157,13 +171,26 @@ def update_graph(n_intervals):
     elif price_difference < 0:
         return [
             html.Div([
-                html.P('Bitcoin',
-                       style = {
-                           'color': 'white',
-                           'fontSize': 17,
-                       },
-                       className = 'coin_name'
-                       ),
+                html.Div([
+                    html.Div([
+                        html.Img(src = app.get_asset_url('bitcoin.png'),
+                                 style = {'height': '30px'},
+                                 className = 'coin'),
+                        html.P('Bitcoin',
+                               style = {
+                                   'color': 'white',
+                                   'fontSize': 17,
+                               },
+                               className = 'coin_name'
+                               )
+                    ], className = 'coin_image'),
+                    html.P('Rank: ' + '{0:,.0f}'.format(bitcoin_rank),
+                           style = {
+                               'color': 'white',
+                               'fontSize': 14,
+                           }, className = 'rank'
+                           ),
+                ], className = 'coin_rank'),
                 html.Div([
                     html.Div([
                         html.H6('{0:,.2f}'.format(bitcoin_price),
@@ -192,13 +219,26 @@ def update_graph(n_intervals):
     elif price_difference == 0:
         return [
             html.Div([
-                html.P('Bitcoin',
+                html.Div([
+                html.Div([
+                    html.Img(src = app.get_asset_url('bitcoin.png'),
+                             style = {'height': '30px'},
+                             className = 'coin'),
+                    html.P('Bitcoin',
+                           style = {
+                               'color': 'white',
+                               'fontSize': 17,
+                           },
+                           className = 'coin_name'
+                           )
+                ], className = 'coin_image'),
+                html.P('Rank: ' + '{0:,.0f}'.format(bitcoin_rank),
                        style = {
                            'color': 'white',
-                           'fontSize': 17,
-                       },
-                       className = 'coin_name'
+                           'fontSize': 14,
+                       }, className = 'rank'
                        ),
+                    ], className = 'coin_rank'),
                 html.Div([
                     html.H6('{0:,.2f}'.format(bitcoin_price),
                             style = {
@@ -223,7 +263,7 @@ def update_graph(n_intervals):
     if n_intervals == 0:
         raise PreventUpdate
     else:
-        header_list = ['Time', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
+        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
         bitcoin_df = pd.read_csv('bitcoin_data.csv', names = header_list)
         change_24h = bitcoin_df['Change (24h) %'].tail(1).iloc[0]
         market_cap = bitcoin_df['Market Cap.'].tail(1).iloc[0]
@@ -308,8 +348,9 @@ def update_graph(n_intervals):
     if n_intervals == 0:
         raise PreventUpdate
     else:
-        header_list = ['Time', 'CryptoCurrency', 'Price', 'price_difference', 'Change (24h) %', 'Market Cap.']
+        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'price_difference', 'Change (24h) %', 'Market Cap.']
         ethereum_df = pd.read_csv('ethereum_data.csv', names = header_list)
+        ethereum_rank = ethereum_df['Rank'][0]
         ethereum_df['price_difference'] = ethereum_df['Price'].diff()
         price_difference = ethereum_df['price_difference'].tail(1).iloc[0]
         ethereum_price = ethereum_df['Price'].tail(1).iloc[0]
@@ -318,13 +359,26 @@ def update_graph(n_intervals):
     if price_difference > 0:
         return [
             html.Div([
-                html.P('Ethereum',
-                       style = {
-                           'color': 'white',
-                           'fontSize': 17,
-                       },
-                       className = 'coin_name'
-                       ),
+                html.Div([
+                    html.Div([
+                        html.Img(src = app.get_asset_url('ethereum.png'),
+                                 style = {'height': '30px'},
+                                 className = 'coin'),
+                        html.P('Ethereum',
+                               style = {
+                                   'color': 'white',
+                                   'fontSize': 17,
+                               },
+                               className = 'coin_name'
+                               )
+                    ], className = 'coin_image'),
+                    html.P('Rank: ' + '{0:,.0f}'.format(ethereum_rank),
+                           style = {
+                               'color': 'white',
+                               'fontSize': 14,
+                           }, className = 'rank'
+                           ),
+                ], className = 'coin_rank'),
                 html.Div([
                     html.Div([
                         html.H6('{0:,.2f}'.format(ethereum_price),
@@ -354,13 +408,26 @@ def update_graph(n_intervals):
     elif price_difference < 0:
         return [
             html.Div([
-                html.P('Ethereum',
-                       style = {
-                           'color': 'white',
-                           'fontSize': 17,
-                       },
-                       className = 'coin_name'
-                       ),
+                html.Div([
+                    html.Div([
+                        html.Img(src = app.get_asset_url('ethereum.png'),
+                                 style = {'height': '30px'},
+                                 className = 'coin'),
+                        html.P('Ethereum',
+                               style = {
+                                   'color': 'white',
+                                   'fontSize': 17,
+                               },
+                               className = 'coin_name'
+                               )
+                    ], className = 'coin_image'),
+                    html.P('Rank: ' + '{0:,.0f}'.format(ethereum_rank),
+                           style = {
+                               'color': 'white',
+                               'fontSize': 14,
+                           }, className = 'rank'
+                           ),
+                ], className = 'coin_rank'),
                 html.Div([
                     html.Div([
                         html.H6('{0:,.2f}'.format(ethereum_price),
@@ -389,13 +456,26 @@ def update_graph(n_intervals):
     elif price_difference == 0:
         return [
             html.Div([
-                html.P('Ethereum',
-                       style = {
-                           'color': 'white',
-                           'fontSize': 17,
-                       },
-                       className = 'coin_name'
-                       ),
+                html.Div([
+                    html.Div([
+                        html.Img(src = app.get_asset_url('ethereum.png'),
+                                 style = {'height': '30px'},
+                                 className = 'coin'),
+                        html.P('Ethereum',
+                               style = {
+                                   'color': 'white',
+                                   'fontSize': 17,
+                               },
+                               className = 'coin_name'
+                               )
+                    ], className = 'coin_image'),
+                    html.P('Rank: ' + '{0:,.0f}'.format(ethereum_rank),
+                           style = {
+                               'color': 'white',
+                               'fontSize': 14,
+                           }, className = 'rank'
+                           ),
+                ], className = 'coin_rank'),
                 html.Div([
                     html.H6('{0:,.2f}'.format(ethereum_price),
                             style = {
@@ -504,8 +584,9 @@ def update_graph(n_intervals):
     if n_intervals == 0:
         raise PreventUpdate
     else:
-        header_list = ['Time', 'CryptoCurrency', 'Price', 'price_difference', 'Change (24h) %', 'Market Cap.']
+        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'price_difference', 'Change (24h) %', 'Market Cap.']
         binance_df = pd.read_csv('binance_data.csv', names = header_list)
+        binance_rank = binance_df['Rank'][0]
         binance_df['price_difference'] = binance_df['Price'].diff()
         price_difference = binance_df['price_difference'].tail(1).iloc[0]
         binance_price = binance_df['Price'].tail(1).iloc[0]
@@ -513,13 +594,26 @@ def update_graph(n_intervals):
     if price_difference > 0:
         return [
             html.Div([
-                html.P('Binance Coin',
-                       style = {
-                           'color': 'white',
-                           'fontSize': 17,
-                       },
-                       className = 'coin_name'
-                       ),
+                html.Div([
+                    html.Div([
+                        html.Img(src = app.get_asset_url('binance.png'),
+                                 style = {'height': '30px'},
+                                 className = 'coin'),
+                        html.P('Binance',
+                               style = {
+                                   'color': 'white',
+                                   'fontSize': 17,
+                               },
+                               className = 'coin_name'
+                               )
+                    ], className = 'coin_image'),
+                    html.P('Rank: ' + '{0:,.0f}'.format(binance_rank),
+                           style = {
+                               'color': 'white',
+                               'fontSize': 14,
+                           }, className = 'rank'
+                           ),
+                ], className = 'coin_rank'),
                 html.Div([
                     html.Div([
                         html.H6('{0:,.2f}'.format(binance_price),
@@ -549,13 +643,26 @@ def update_graph(n_intervals):
     elif price_difference < 0:
         return [
             html.Div([
-                html.P('Binance Coin',
-                       style = {
-                           'color': 'white',
-                           'fontSize': 17,
-                       },
-                       className = 'coin_name'
-                       ),
+                html.Div([
+                    html.Div([
+                        html.Img(src = app.get_asset_url('binance.png'),
+                                 style = {'height': '30px'},
+                                 className = 'coin'),
+                        html.P('Binance',
+                               style = {
+                                   'color': 'white',
+                                   'fontSize': 17,
+                               },
+                               className = 'coin_name'
+                               )
+                    ], className = 'coin_image'),
+                    html.P('Rank: ' + '{0:,.0f}'.format(binance_rank),
+                           style = {
+                               'color': 'white',
+                               'fontSize': 14,
+                           }, className = 'rank'
+                           ),
+                ], className = 'coin_rank'),
                 html.Div([
                     html.Div([
                         html.H6('{0:,.2f}'.format(binance_price),
@@ -584,13 +691,26 @@ def update_graph(n_intervals):
     elif price_difference == 0:
         return [
             html.Div([
-                html.P('Binance Coin',
-                       style = {
-                           'color': 'white',
-                           'fontSize': 17,
-                       },
-                       className = 'coin_name'
-                       ),
+                html.Div([
+                    html.Div([
+                        html.Img(src = app.get_asset_url('binance.png'),
+                                 style = {'height': '30px'},
+                                 className = 'coin'),
+                        html.P('Binance',
+                               style = {
+                                   'color': 'white',
+                                   'fontSize': 17,
+                               },
+                               className = 'coin_name'
+                               )
+                    ], className = 'coin_image'),
+                    html.P('Rank: ' + '{0:,.0f}'.format(binance_rank),
+                           style = {
+                               'color': 'white',
+                               'fontSize': 14,
+                           }, className = 'rank'
+                           ),
+                ], className = 'coin_rank'),
                 html.Div([
                     html.H6('{0:,.2f}'.format(binance_price),
                             style = {
@@ -698,8 +818,9 @@ def update_graph(n_intervals):
     if n_intervals == 0:
         raise PreventUpdate
     else:
-        header_list = ['Time', 'CryptoCurrency', 'Price', 'price_difference', 'Change (24h) %', 'Market Cap.']
+        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'price_difference', 'Change (24h) %', 'Market Cap.']
         bitcoincash_df = pd.read_csv('bitcoincash_data.csv', names = header_list)
+        bitcoincash_rank = bitcoincash_df['Rank'][0]
         bitcoincash_df['price_difference'] = bitcoincash_df['Price'].diff()
         price_difference = bitcoincash_df['price_difference'].tail(1).iloc[0]
         bitcoincash_price = bitcoincash_df['Price'].tail(1).iloc[0]
@@ -707,13 +828,26 @@ def update_graph(n_intervals):
     if price_difference > 0:
         return [
             html.Div([
-                html.P('Bitcoin Cash',
-                       style = {
-                           'color': 'white',
-                           'fontSize': 17,
-                       },
-                       className = 'coin_name'
-                       ),
+                html.Div([
+                    html.Div([
+                        html.Img(src = app.get_asset_url('bitcoincash.png'),
+                                 style = {'height': '30px'},
+                                 className = 'coin'),
+                        html.P('Bitcoin Cash',
+                               style = {
+                                   'color': 'white',
+                                   'fontSize': 17,
+                               },
+                               className = 'coin_name'
+                               )
+                    ], className = 'coin_image'),
+                    html.P('Rank: ' + '{0:,.0f}'.format(bitcoincash_rank),
+                           style = {
+                               'color': 'white',
+                               'fontSize': 14,
+                           }, className = 'rank'
+                           ),
+                ], className = 'coin_rank'),
                 html.Div([
                     html.Div([
                         html.H6('{0:,.2f}'.format(bitcoincash_price),
@@ -743,13 +877,26 @@ def update_graph(n_intervals):
     elif price_difference < 0:
         return [
             html.Div([
-                html.P('Bitcoin Cash',
-                       style = {
-                           'color': 'white',
-                           'fontSize': 17,
-                       },
-                       className = 'coin_name'
-                       ),
+                html.Div([
+                    html.Div([
+                        html.Img(src = app.get_asset_url('bitcoincash.png'),
+                                 style = {'height': '30px'},
+                                 className = 'coin'),
+                        html.P('Bitcoin Cash',
+                               style = {
+                                   'color': 'white',
+                                   'fontSize': 17,
+                               },
+                               className = 'coin_name'
+                               )
+                    ], className = 'coin_image'),
+                    html.P('Rank: ' + '{0:,.0f}'.format(bitcoincash_rank),
+                           style = {
+                               'color': 'white',
+                               'fontSize': 14,
+                           }, className = 'rank'
+                           ),
+                ], className = 'coin_rank'),
                 html.Div([
                     html.Div([
                         html.H6('{0:,.2f}'.format(bitcoincash_price),
@@ -778,13 +925,26 @@ def update_graph(n_intervals):
     elif price_difference == 0:
         return [
             html.Div([
-                html.P('Bitcoin Cash',
-                       style = {
-                           'color': 'white',
-                           'fontSize': 17,
-                       },
-                       className = 'coin_name'
-                       ),
+                html.Div([
+                    html.Div([
+                        html.Img(src = app.get_asset_url('bitcoincash.png'),
+                                 style = {'height': '30px'},
+                                 className = 'coin'),
+                        html.P('Bitcoin Cash',
+                               style = {
+                                   'color': 'white',
+                                   'fontSize': 17,
+                               },
+                               className = 'coin_name'
+                               )
+                    ], className = 'coin_image'),
+                    html.P('Rank: ' + '{0:,.0f}'.format(bitcoincash_rank),
+                           style = {
+                               'color': 'white',
+                               'fontSize': 14,
+                           }, className = 'rank'
+                           ),
+                ], className = 'coin_rank'),
                 html.Div([
                     html.H6('{0:,.2f}'.format(bitcoincash_price),
                             style = {
@@ -893,31 +1053,31 @@ def update_graph(n_intervals):
     if n_intervals == 0:
         raise PreventUpdate
     else:
-        header_list = ['Time', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
+        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
         chainlink_df = pd.read_csv('chainlink_data.csv', names = header_list)
         chainlink_price = chainlink_df['Price'].tail(1).iloc[0]
         chainlink_change_24h = chainlink_df['Change (24h) %'].tail(1).iloc[0]
         chainlink_market_cap = chainlink_df['Market Cap.'].tail(1).iloc[0]
 
-        header_list = ['Time', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
+        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
         bitcoin_df = pd.read_csv('bitcoin_data.csv', names = header_list)
         bitcoin_price = bitcoin_df['Price'].tail(1).iloc[0]
         bitcoin_change_24h = bitcoin_df['Change (24h) %'].tail(1).iloc[0]
         bitcoin_market_cap = bitcoin_df['Market Cap.'].tail(1).iloc[0]
 
-        header_list = ['Time', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
+        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
         ethereum_df = pd.read_csv('ethereum_data.csv', names = header_list)
         ethereum_price = ethereum_df['Price'].tail(1).iloc[0]
         ethereum_change_24h = ethereum_df['Change (24h) %'].tail(1).iloc[0]
         ethereum_market_cap = ethereum_df['Market Cap.'].tail(1).iloc[0]
 
-        header_list = ['Time', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
+        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
         binancecoin_df = pd.read_csv('binance_data.csv', names = header_list)
         binancecoin_price = binancecoin_df['Price'].tail(1).iloc[0]
         binancecoin_change_24h = binancecoin_df['Change (24h) %'].tail(1).iloc[0]
         binancecoin_market_cap = binancecoin_df['Market Cap.'].tail(1).iloc[0]
 
-        header_list = ['Time', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
+        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
         bitcoincash_df = pd.read_csv('bitcoincash_data.csv', names = header_list)
         bitcoincash_price = bitcoincash_df['Price'].tail(1).iloc[0]
         bitcoincash_change_24h = bitcoincash_df['Change (24h) %'].tail(1).iloc[0]
@@ -1169,7 +1329,7 @@ def update_graph(n_intervals):
     if n_intervals == 0:
         raise PreventUpdate
     else:
-        header_list = ['Time', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
+        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
         bitcoin_df = pd.read_csv('bitcoin_data.csv', names = header_list)
         bitcoin_price = bitcoin_df['Price'].tail(30)
         time_interval = bitcoin_df['Time'].tail(30)
@@ -1268,7 +1428,7 @@ def update_graph(n_intervals):
     if n_intervals == 0:
         raise PreventUpdate
     else:
-        header_list = ['Time', 'CryptoCurrency', 'Price', 'price_difference', 'Change (24h) %', 'Market Cap.']
+        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
         bitcoin_df = pd.read_csv('bitcoin_data.csv', names = header_list)
         bitcoin_price = bitcoin_df['Price'].tail(1).iloc[0]
         time_value = bitcoin_df['Time'].tail(1).iloc[0]

@@ -36,7 +36,10 @@ body {
 .title_date_time_container {
   display: flex;
   flex-wrap: wrap;
+  position: fixed;
+  top: 0;
   background-color: rgb(23,25,36);
+  width: 100%;
 }
 
 .adjust_first_card {
@@ -103,13 +106,40 @@ body {
 }
 
 .adjust_margin {
-   margin-top: 20px;
+   margin-top: 60px;
+}
+
+.coin {
+  display: flex;
+  flex-direction: row;
+  margin-top: 6px;
 }
 
 .coin_name {
   display: flex;
   flex-direction: row;
   margin-top: 10px;
+  white-space: pre;
+}
+
+.coin_image {
+  display: flex;
+  flex-direction: row;
+  gap:3px;
+}
+
+.rank {
+  display: flex;
+  flex-direction: row;
+  margin-top: 13px;
+  white-space: pre;
+  margin-right: 15px;
+}
+
+.coin_rank {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .coin_price {
@@ -120,7 +150,7 @@ body {
 .price_indicator {
   display: flex;
   flex-direction: row;
-  margin-top: 14px;
+  margin-top: 13px;
 }
 
 .right_price_value {
@@ -162,7 +192,7 @@ body {
 .difference_indicator {
   display: flex;
   flex-direction: row;
-  margin-top: 11px;
+  margin-top: 10px;
 }
 
 .difference_row {
@@ -174,7 +204,7 @@ body {
 .cap_right_value {
   display: flex;
   flex-direction: row;
-  margin-top: 8px;
+  margin-top: 7px;
 }
 
 .diff_row_cap {

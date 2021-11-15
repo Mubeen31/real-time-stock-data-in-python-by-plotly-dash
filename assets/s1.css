@@ -557,6 +557,10 @@ there.
 /* Larger than tablet, for screens smaller than 768px */
 @media (max-width: 550px) {
 
+.right_price_value {
+  margin-top: 11px !important;
+}
+
 .adjust_first_card {
   width: 220px !important;
 }
@@ -597,6 +601,15 @@ there.
 
 .footer_text{
    width: 470px !important;
+}
+
+.footer_content {
+   height: 60px !important;
+   align-items: center !important;
+}
+
+.rank {
+  margin-right: 10px !important;
 }
 
 

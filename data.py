@@ -13,11 +13,12 @@ while i == 1:
     import_request = Request(url, headers = {'User-Agent': 'Chrome/91.0.4472.77'})
     web_page_data = urlopen(import_request).read()
     df = pd.read_html(web_page_data)
+    # print(df)
     # print(df[0])
     # print(df[0].columns)
 
     # Remove column
-    df[0].drop(df[0].columns[[0, 4, 5, 7]], axis = 1, inplace = True)
+    df[0].drop(df[0].columns[[4, 5, 7]], axis = 1, inplace = True)
     # print(df[0].columns)
 
     # Rename column
@@ -38,7 +39,8 @@ while i == 1:
     df[0]['Market Cap.'] = df[0]['Market Cap.'].astype('int64')
 
     # Change position of columns
-    df[0] = df[0][['CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']]
+    df[0] = df[0][['Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']]
+    # print(df[0])
 
     time.sleep(5)
     # print(df[0].dtypes)
@@ -46,55 +48,62 @@ while i == 1:
     now = datetime.now()
     dt_string = now.strftime("%Y-%m-%d %H:%M:%S")
 
-    bitcoin_row = df[0].loc[[0]]
-    bitcoin_currency = bitcoin_row['CryptoCurrency'][0]
-    bitcoin_price = bitcoin_row['Price'][0]
-    bitcoin_change = bitcoin_row['Change (24h) %'][0]
-    bitcoin_market_cap = bitcoin_row['Market Cap.'][0]
+    bitcoin_row = df[0]
+    # print(bitcoin_row)
+    bitcoin_rank = bitcoin_row[bitcoin_row['CryptoCurrency'] == 'Bitcoin']['Rank'].iloc[0]
+    bitcoin_currency = bitcoin_row[bitcoin_row['CryptoCurrency'] == 'Bitcoin']['CryptoCurrency'].iloc[0]
+    bitcoin_price = bitcoin_row[bitcoin_row['CryptoCurrency'] == 'Bitcoin']['Price'].iloc[0]
+    bitcoin_change = bitcoin_row[bitcoin_row['CryptoCurrency'] == 'Bitcoin']['Change (24h) %'].iloc[0]
+    bitcoin_market_cap = bitcoin_row[bitcoin_row['CryptoCurrency'] == 'Bitcoin']['Market Cap.'].iloc[0]
 
-    ethereum_row = df[0].loc[[1]]
-    ethereum_currency = ethereum_row['CryptoCurrency'][1]
-    ethereum_price = ethereum_row['Price'][1]
-    ethereum_change = ethereum_row['Change (24h) %'][1]
-    ethereum_market_cap = ethereum_row['Market Cap.'][1]
+    ethereum_row = df[0]
+    ethereum_rank = ethereum_row[ethereum_row['CryptoCurrency'] == 'Ethereum']['Rank'].iloc[0]
+    ethereum_currency = ethereum_row[ethereum_row['CryptoCurrency'] == 'Ethereum']['CryptoCurrency'].iloc[0]
+    ethereum_price = ethereum_row[ethereum_row['CryptoCurrency'] == 'Ethereum']['Price'].iloc[0]
+    ethereum_change = ethereum_row[ethereum_row['CryptoCurrency'] == 'Ethereum']['Change (24h) %'].iloc[0]
+    ethereum_market_cap = ethereum_row[ethereum_row['CryptoCurrency'] == 'Ethereum']['Market Cap.'].iloc[0]
 
-    binance_row = df[0].loc[[2]]
-    binance_currency = binance_row['CryptoCurrency'][2]
-    binance_price = binance_row['Price'][2]
-    binance_change = binance_row['Change (24h) %'][2]
-    binance_market_cap = binance_row['Market Cap.'][2]
+    binance_row = df[0]
+    binance_rank = binance_row[binance_row['CryptoCurrency'] == 'Binance Coin']['Rank'].iloc[0]
+    binance_currency = binance_row[binance_row['CryptoCurrency'] == 'Binance Coin']['CryptoCurrency'].iloc[0]
+    binance_price = binance_row[binance_row['CryptoCurrency'] == 'Binance Coin']['Price'].iloc[0]
+    binance_change = binance_row[binance_row['CryptoCurrency'] == 'Binance Coin']['Change (24h) %'].iloc[0]
+    binance_market_cap = binance_row[binance_row['CryptoCurrency'] == 'Binance Coin']['Market Cap.'].iloc[0]
     # print(df[0].head(30))
 
-    bitcoincash_row = df[0].loc[[18]]
-    bitcoincash_currency = bitcoincash_row['CryptoCurrency'][18]
-    bitcoincash_price = bitcoincash_row['Price'][18]
-    bitcoincash_change = bitcoincash_row['Change (24h) %'][18]
-    bitcoincash_market_cap = bitcoincash_row['Market Cap.'][18]
+    bitCoinCash_row = df[0]
+    bitCoinCash_rank = bitCoinCash_row[bitCoinCash_row['CryptoCurrency'] == 'Bitcoin Cash']['Rank'].iloc[0]
+    bitCoinCash_currency = bitCoinCash_row[bitCoinCash_row['CryptoCurrency'] == 'Bitcoin Cash']['CryptoCurrency'].iloc[0]
+    bitCoinCash_price = bitCoinCash_row[bitCoinCash_row['CryptoCurrency'] == 'Bitcoin Cash']['Price'].iloc[0]
+    bitCoinCash_change = bitCoinCash_row[bitCoinCash_row['CryptoCurrency'] == 'Bitcoin Cash']['Change (24h) %'].iloc[0]
+    bitCoinCash_market_cap = bitCoinCash_row[bitCoinCash_row['CryptoCurrency'] == 'Bitcoin Cash']['Market Cap.'].iloc[0]
     # print(df[0].head(30))
 
-    chainlink_row = df[0].loc[[12]]
-    chainlink_currency = chainlink_row['CryptoCurrency'][12]
-    chainlink_price = chainlink_row['Price'][12]
-    chainlink_change = chainlink_row['Change (24h) %'][12]
-    chainlink_market_cap = chainlink_row['Market Cap.'][12]
+    chainLink_row = df[0]
+    chainLink_rank = chainLink_row[chainLink_row['CryptoCurrency'] == 'Chainlink']['Rank'].iloc[0]
+    chainLink_currency = chainLink_row[chainLink_row['CryptoCurrency'] == 'Chainlink']['CryptoCurrency'].iloc[0]
+    chainLink_price = chainLink_row[chainLink_row['CryptoCurrency'] == 'Chainlink']['Price'].iloc[0]
+    chainLink_change = chainLink_row[chainLink_row['CryptoCurrency'] == 'Chainlink']['Change (24h) %'].iloc[0]
+    chainLink_market_cap = chainLink_row[chainLink_row['CryptoCurrency'] == 'Chainlink']['Market Cap.'].iloc[0]
 
     with open("bitcoin_data.csv", "a") as f:
         writer = csv.writer(f, delimiter = ",")
-        writer.writerow([dt_string, bitcoin_currency, bitcoin_price, bitcoin_change, bitcoin_market_cap])
-        print(dt_string, bitcoin_currency, bitcoin_price, bitcoin_change, bitcoin_market_cap)
+        writer.writerow([dt_string, bitcoin_rank, bitcoin_currency, bitcoin_price, bitcoin_change, bitcoin_market_cap])
+        # print(dt_string, bitcoin_rank, bitcoin_currency, bitcoin_price, bitcoin_change, bitcoin_market_cap)
     with open("ethereum_data.csv", "a") as f:
         writer = csv.writer(f, delimiter = ",")
-        writer.writerow([dt_string, ethereum_currency, ethereum_price, ethereum_change, ethereum_market_cap])
-    #     # print(dt_string, ethereum_currency, ethereum_price, ethereum_change, ethereum_market_cap)
+        writer.writerow([dt_string, ethereum_rank, ethereum_currency, ethereum_price, ethereum_change, ethereum_market_cap])
+        # print(dt_string, ethereum_rank, ethereum_currency, ethereum_price, ethereum_change, ethereum_market_cap)
     with open("binance_data.csv", "a") as f:
         writer = csv.writer(f, delimiter = ",")
-        writer.writerow([dt_string, binance_currency, binance_price, binance_change, binance_market_cap])
-    #     # print(dt_string, binance_currency, binance_price, binance_change, binance_market_cap)
+        writer.writerow([dt_string, binance_rank, binance_currency, binance_price, binance_change, binance_market_cap])
+        # print(dt_string, binance_rank, binance_currency, binance_price, binance_change, binance_market_cap)
     with open("bitcoincash_data.csv", "a") as f:
         writer = csv.writer(f, delimiter = ",")
-        writer.writerow([dt_string, bitcoincash_currency, bitcoincash_price, bitcoincash_change, bitcoincash_market_cap])
-        # print(dt_string, bitcoincash_currency, bitcoincash_price, bitcoincash_change, bitcoincash_market_cap)
+        writer.writerow([dt_string, bitCoinCash_rank, bitCoinCash_currency, bitCoinCash_price, bitCoinCash_change, bitCoinCash_market_cap])
+        print(dt_string, bitCoinCash_rank, bitCoinCash_currency, bitCoinCash_price, bitCoinCash_change, bitCoinCash_market_cap)
     with open("chainlink_data.csv", "a") as f:
         writer = csv.writer(f, delimiter = ",")
-        writer.writerow([dt_string, chainlink_currency, chainlink_price, chainlink_change, chainlink_market_cap])
-    #     # print(dt_string, chainlink_currency, chainlink_price, chainlink_change, chainlink_market_cap)
+        writer.writerow([dt_string, chainLink_rank, chainLink_currency, chainLink_price, chainLink_change, chainLink_market_cap])
+        # print(dt_string, chainLink_rank, chainLink_currency, chainLink_price, chainLink_change, chainLink_market_cap)
+
