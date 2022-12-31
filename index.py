@@ -1,17 +1,24 @@
 import dash
-import dash_core_components as dcc
-import dash_html_components as html
+from dash import dcc
+from dash import html
 from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 from dash.exceptions import PreventUpdate
 import pandas as pd
 from datetime import datetime
+import time
+import csv
+from urllib.request import Request, urlopen
+import ssl
+
+ssl._create_default_https_context = ssl._create_unverified_context
 
 font_awesome = "https://use.fontawesome.com/releases/v5.10.2/css/all.css"
 meta_tags = [{"name": "viewport", "content": "width=device-width"}]
 external_stylesheets = [meta_tags, font_awesome]
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+server = app.server
 
 app.layout = html.Div([
     html.Div([
@@ -109,15 +116,57 @@ def update_graph(n_intervals):
 @app.callback(Output('text_row1', 'children'),
               [Input('update_value', 'n_intervals')])
 def update_graph(n_intervals):
-    if n_intervals == 0:
-        raise PreventUpdate
-    else:
-        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'price_difference', 'Change (24h) %', 'Market Cap.']
-        bitcoin_df = pd.read_csv('bitcoin_data.csv', names=header_list)
-        bitcoin_rank = bitcoin_df['Rank'][0]
-        bitcoin_df['price_difference'] = bitcoin_df['Price'].diff()
-        price_difference = bitcoin_df['price_difference'].tail(1).iloc[0]
-        bitcoin_price = bitcoin_df['Price'].tail(1).iloc[0]
+    url = 'https://goldprice.org/cryptocurrency-price'
+    import_request = Request(url, headers={'User-Agent': 'Chrome/91.0.4472.77'})
+    web_page_data = urlopen(import_request).read()
+    df = pd.read_html(web_page_data)
+    # print(df)
+
+    # Remove columns
+    df[0].drop(df[0].columns[[4, 5, 7]], axis=1, inplace=True)
+
+    # Rename column
+    df[0].rename(columns={'Change (24h)': 'Change (24h) %'}, inplace=True)
+
+    # Remove % and $ symbols from columns
+    df[0]['Price'] = list(map(lambda x: x[1:], df[0]['Price'].values))
+    df[0]['Change (24h) %'] = list(map(lambda x: x[:-1], df[0]['Change (24h) %'].values))
+    df[0]['Market Cap.'] = list(map(lambda x: x[1:], df[0]['Market Cap.'].values))
+
+    # Remove commas from columns
+    df[0]['Price'] = df[0]['Price'].str.replace(',', '')
+    df[0]['Market Cap.'] = df[0]['Market Cap.'].str.replace(',', '')
+
+    # Change data type of column
+    df[0]['Price'] = df[0]['Price'].astype(float).round(2)
+    df[0]['Change (24h) %'] = df[0]['Change (24h) %'].astype(float)
+    df[0]['Market Cap.'] = df[0]['Market Cap.'].astype('int64')
+
+    # Change position of columns
+    df[0] = df[0][['Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']]
+
+    # time
+    now = datetime.now()
+    dt_string = now.strftime("%Y-%m-%d %H:%M:%S")
+
+    bitcoin_row = df[0]
+    bitcoin_rank1 = bitcoin_row[bitcoin_row['CryptoCurrency'] == 'Bitcoin']['Rank'].iloc[0]
+    bitcoin_currency1 = bitcoin_row[bitcoin_row['CryptoCurrency'] == 'Bitcoin']['CryptoCurrency'].iloc[0]
+    bitcoin_price1 = bitcoin_row[bitcoin_row['CryptoCurrency'] == 'Bitcoin']['Price'].iloc[0]
+    bitcoin_change1 = bitcoin_row[bitcoin_row['CryptoCurrency'] == 'Bitcoin']['Change (24h) %'].iloc[0]
+    bitcoin_market_cap1 = bitcoin_row[bitcoin_row['CryptoCurrency'] == 'Bitcoin']['Market Cap.'].iloc[0]
+
+    with open('bitcoin_data.csv', 'a', newline='\n') as f:
+        writer = csv.writer(f, delimiter=",")
+        writer.writerow([dt_string, bitcoin_rank1, bitcoin_currency1, bitcoin_price1,
+                         bitcoin_change1, bitcoin_market_cap1])
+
+    header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'price_difference', 'Change (24h) %', 'Market Cap.']
+    bitcoin_df = pd.read_csv('bitcoin_data.csv', names=header_list)
+    bitcoin_rank = bitcoin_df['Rank'][0]
+    bitcoin_df['price_difference'] = bitcoin_df['Price'].diff()
+    price_difference = bitcoin_df['price_difference'].tail(1).iloc[0]
+    bitcoin_price = bitcoin_df['Price'].tail(1).iloc[0]
 
     if price_difference > 0:
         return [
@@ -168,6 +217,7 @@ def update_graph(n_intervals):
             ], className='coin_price_column'),
 
         ]
+
     elif price_difference < 0:
         return [
             html.Div([
@@ -216,7 +266,9 @@ def update_graph(n_intervals):
                 ], className='adjust_price_indicator_right')
             ], className='coin_price_column'),
         ]
+
     elif price_difference == 0:
+
         return [
             html.Div([
                 html.Div([
@@ -261,13 +313,10 @@ def update_graph(n_intervals):
 @app.callback(Output('text_row2', 'children'),
               [Input('update_value', 'n_intervals')])
 def update_graph(n_intervals):
-    if n_intervals == 0:
-        raise PreventUpdate
-    else:
-        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
-        bitcoin_df = pd.read_csv('bitcoin_data.csv', names=header_list)
-        change_24h = bitcoin_df['Change (24h) %'].tail(1).iloc[0]
-        market_cap = bitcoin_df['Market Cap.'].tail(1).iloc[0]
+    header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
+    bitcoin_df = pd.read_csv('bitcoin_data.csv', names=header_list)
+    change_24h = bitcoin_df['Change (24h) %'].tail(1).iloc[0]
+    market_cap = bitcoin_df['Market Cap.'].tail(1).iloc[0]
 
     if change_24h > 0:
         return [
@@ -296,6 +345,7 @@ def update_graph(n_intervals):
             ], className='diff_row_cap'),
 
         ]
+
     elif change_24h < 0:
         return [
             html.Div([
@@ -322,6 +372,7 @@ def update_graph(n_intervals):
                        ),
             ], className='diff_row_cap'),
         ]
+
     elif change_24h == 0:
         return [
             html.Div([
@@ -346,15 +397,55 @@ def update_graph(n_intervals):
 @app.callback(Output('text_row3', 'children'),
               [Input('update_value', 'n_intervals')])
 def update_graph(n_intervals):
-    if n_intervals == 0:
-        raise PreventUpdate
-    else:
-        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'price_difference', 'Change (24h) %', 'Market Cap.']
-        ethereum_df = pd.read_csv('ethereum_data.csv', names=header_list)
-        ethereum_rank = ethereum_df['Rank'][0]
-        ethereum_df['price_difference'] = ethereum_df['Price'].diff()
-        price_difference = ethereum_df['price_difference'].tail(1).iloc[0]
-        ethereum_price = ethereum_df['Price'].tail(1).iloc[0]
+    url = 'https://goldprice.org/cryptocurrency-price'
+    import_request = Request(url, headers={'User-Agent': 'Chrome/91.0.4472.77'})
+    web_page_data = urlopen(import_request).read()
+    df = pd.read_html(web_page_data)
+
+    # Remove columns
+    df[0].drop(df[0].columns[[4, 5, 7]], axis=1, inplace=True)
+
+    # Rename column
+    df[0].rename(columns={'Change (24h)': 'Change (24h) %'}, inplace=True)
+
+    # Remove % and $ symbols from columns
+    df[0]['Price'] = list(map(lambda x: x[1:], df[0]['Price'].values))
+    df[0]['Change (24h) %'] = list(map(lambda x: x[:-1], df[0]['Change (24h) %'].values))
+    df[0]['Market Cap.'] = list(map(lambda x: x[1:], df[0]['Market Cap.'].values))
+
+    # Remove commas from columns
+    df[0]['Price'] = df[0]['Price'].str.replace(',', '')
+    df[0]['Market Cap.'] = df[0]['Market Cap.'].str.replace(',', '')
+
+    # Change data type of column
+    df[0]['Price'] = df[0]['Price'].astype(float).round(2)
+    df[0]['Change (24h) %'] = df[0]['Change (24h) %'].astype(float)
+    df[0]['Market Cap.'] = df[0]['Market Cap.'].astype('int64')
+
+    # Change position of columns
+    df[0] = df[0][['Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']]
+
+    # time
+    now = datetime.now()
+    dt_string = now.strftime("%Y-%m-%d %H:%M:%S")
+
+    ethereum_row = df[0]
+    ethereum_rank1 = ethereum_row[ethereum_row['CryptoCurrency'] == 'Ethereum']['Rank'].iloc[0]
+    ethereum_currency1 = ethereum_row[ethereum_row['CryptoCurrency'] == 'Ethereum']['CryptoCurrency'].iloc[0]
+    ethereum_price1 = ethereum_row[ethereum_row['CryptoCurrency'] == 'Ethereum']['Price'].iloc[0]
+    ethereum_change1 = ethereum_row[ethereum_row['CryptoCurrency'] == 'Ethereum']['Change (24h) %'].iloc[0]
+    ethereum_market_cap1 = ethereum_row[ethereum_row['CryptoCurrency'] == 'Ethereum']['Market Cap.'].iloc[0]
+
+    with open('ethereum_data.csv', 'a', newline='\n') as f:
+        writer = csv.writer(f, delimiter=",")
+        writer.writerow([dt_string, ethereum_rank1, ethereum_currency1, ethereum_price1,
+                         ethereum_change1, ethereum_market_cap1])
+    header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'price_difference', 'Change (24h) %', 'Market Cap.']
+    ethereum_df = pd.read_csv('ethereum_data.csv', names=header_list)
+    ethereum_rank = ethereum_df['Rank'][0]
+    ethereum_df['price_difference'] = ethereum_df['Price'].diff()
+    price_difference = ethereum_df['price_difference'].tail(1).iloc[0]
+    ethereum_price = ethereum_df['Price'].tail(1).iloc[0]
 
     if price_difference > 0:
         return [
@@ -583,15 +674,55 @@ def update_graph(n_intervals):
 @app.callback(Output('text_row5', 'children'),
               [Input('update_value', 'n_intervals')])
 def update_graph(n_intervals):
-    if n_intervals == 0:
-        raise PreventUpdate
-    else:
-        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'price_difference', 'Change (24h) %', 'Market Cap.']
-        binance_df = pd.read_csv('binance_data.csv', names=header_list)
-        binance_rank = binance_df['Rank'][0]
-        binance_df['price_difference'] = binance_df['Price'].diff()
-        price_difference = binance_df['price_difference'].tail(1).iloc[0]
-        binance_price = binance_df['Price'].tail(1).iloc[0]
+    url = 'https://goldprice.org/cryptocurrency-price'
+    import_request = Request(url, headers={'User-Agent': 'Chrome/91.0.4472.77'})
+    web_page_data = urlopen(import_request).read()
+    df = pd.read_html(web_page_data)
+
+    # Remove columns
+    df[0].drop(df[0].columns[[4, 5, 7]], axis=1, inplace=True)
+
+    # Rename column
+    df[0].rename(columns={'Change (24h)': 'Change (24h) %'}, inplace=True)
+
+    # Remove % and $ symbols from columns
+    df[0]['Price'] = list(map(lambda x: x[1:], df[0]['Price'].values))
+    df[0]['Change (24h) %'] = list(map(lambda x: x[:-1], df[0]['Change (24h) %'].values))
+    df[0]['Market Cap.'] = list(map(lambda x: x[1:], df[0]['Market Cap.'].values))
+
+    # Remove commas from columns
+    df[0]['Price'] = df[0]['Price'].str.replace(',', '')
+    df[0]['Market Cap.'] = df[0]['Market Cap.'].str.replace(',', '')
+
+    # Change data type of column
+    df[0]['Price'] = df[0]['Price'].astype(float).round(2)
+    df[0]['Change (24h) %'] = df[0]['Change (24h) %'].astype(float)
+    df[0]['Market Cap.'] = df[0]['Market Cap.'].astype('int64')
+
+    # Change position of columns
+    df[0] = df[0][['Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']]
+
+    # time
+    now = datetime.now()
+    dt_string = now.strftime("%Y-%m-%d %H:%M:%S")
+
+    binance_row = df[0]
+    binance_rank1 = binance_row[binance_row['CryptoCurrency'] == 'BNB']['Rank'].iloc[0]
+    binance_currency1 = binance_row[binance_row['CryptoCurrency'] == 'BNB']['CryptoCurrency'].iloc[0]
+    binance_price1 = binance_row[binance_row['CryptoCurrency'] == 'BNB']['Price'].iloc[0]
+    binance_change1 = binance_row[binance_row['CryptoCurrency'] == 'BNB']['Change (24h) %'].iloc[0]
+    binance_market_cap1 = binance_row[binance_row['CryptoCurrency'] == 'BNB']['Market Cap.'].iloc[0]
+
+    with open('binance_data.csv', 'a', newline='\n') as f:
+        writer = csv.writer(f, delimiter=",")
+        writer.writerow([dt_string, binance_rank1, binance_currency1, binance_price1,
+                         binance_change1, binance_market_cap1])
+    header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'price_difference', 'Change (24h) %', 'Market Cap.']
+    binance_df = pd.read_csv('binance_data.csv', names=header_list)
+    binance_rank = binance_df['Rank'][0]
+    binance_df['price_difference'] = binance_df['Price'].diff()
+    price_difference = binance_df['price_difference'].tail(1).iloc[0]
+    binance_price = binance_df['Price'].tail(1).iloc[0]
 
     if price_difference > 0:
         return [
@@ -820,15 +951,55 @@ def update_graph(n_intervals):
 @app.callback(Output('text_row7', 'children'),
               [Input('update_value', 'n_intervals')])
 def update_graph(n_intervals):
-    if n_intervals == 0:
-        raise PreventUpdate
-    else:
-        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'price_difference', 'Change (24h) %', 'Market Cap.']
-        bitcoincash_df = pd.read_csv('bitcoincash_data.csv', names=header_list)
-        bitcoincash_rank = bitcoincash_df['Rank'][0]
-        bitcoincash_df['price_difference'] = bitcoincash_df['Price'].diff()
-        price_difference = bitcoincash_df['price_difference'].tail(1).iloc[0]
-        bitcoincash_price = bitcoincash_df['Price'].tail(1).iloc[0]
+    url = 'https://goldprice.org/cryptocurrency-price'
+    import_request = Request(url, headers={'User-Agent': 'Chrome/91.0.4472.77'})
+    web_page_data = urlopen(import_request).read()
+    df = pd.read_html(web_page_data)
+
+    # Remove columns
+    df[0].drop(df[0].columns[[4, 5, 7]], axis=1, inplace=True)
+
+    # Rename column
+    df[0].rename(columns={'Change (24h)': 'Change (24h) %'}, inplace=True)
+
+    # Remove % and $ symbols from columns
+    df[0]['Price'] = list(map(lambda x: x[1:], df[0]['Price'].values))
+    df[0]['Change (24h) %'] = list(map(lambda x: x[:-1], df[0]['Change (24h) %'].values))
+    df[0]['Market Cap.'] = list(map(lambda x: x[1:], df[0]['Market Cap.'].values))
+
+    # Remove commas from columns
+    df[0]['Price'] = df[0]['Price'].str.replace(',', '')
+    df[0]['Market Cap.'] = df[0]['Market Cap.'].str.replace(',', '')
+
+    # Change data type of column
+    df[0]['Price'] = df[0]['Price'].astype(float).round(2)
+    df[0]['Change (24h) %'] = df[0]['Change (24h) %'].astype(float)
+    df[0]['Market Cap.'] = df[0]['Market Cap.'].astype('int64')
+
+    # Change position of columns
+    df[0] = df[0][['Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']]
+
+    # time
+    now = datetime.now()
+    dt_string = now.strftime("%Y-%m-%d %H:%M:%S")
+
+    bitCoinCash_row = df[0]
+    bitCoinCash_rank1 = bitCoinCash_row[bitCoinCash_row['CryptoCurrency'] == 'Bitcoin Cash']['Rank'].iloc[0]
+    bitCoinCash_currency1 = bitCoinCash_row[bitCoinCash_row['CryptoCurrency'] == 'Bitcoin Cash']['CryptoCurrency'].iloc[0]
+    bitCoinCash_price1 = bitCoinCash_row[bitCoinCash_row['CryptoCurrency'] == 'Bitcoin Cash']['Price'].iloc[0]
+    bitCoinCash_change1 = bitCoinCash_row[bitCoinCash_row['CryptoCurrency'] == 'Bitcoin Cash']['Change (24h) %'].iloc[0]
+    bitCoinCash_market_cap1 = bitCoinCash_row[bitCoinCash_row['CryptoCurrency'] == 'Bitcoin Cash']['Market Cap.'].iloc[0]
+
+    with open('bitcoincash_data.csv', 'a', newline='\n') as f:
+        writer = csv.writer(f, delimiter=",")
+        writer.writerow([dt_string, bitCoinCash_rank1, bitCoinCash_currency1, bitCoinCash_price1,
+                         bitCoinCash_change1, bitCoinCash_market_cap1])
+    header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'price_difference', 'Change (24h) %', 'Market Cap.']
+    bitcoincash_df = pd.read_csv('bitcoincash_data.csv', names=header_list)
+    bitcoincash_rank = bitcoincash_df['Rank'][0]
+    bitcoincash_df['price_difference'] = bitcoincash_df['Price'].diff()
+    price_difference = bitcoincash_df['price_difference'].tail(1).iloc[0]
+    bitcoincash_price = bitcoincash_df['Price'].tail(1).iloc[0]
 
     if price_difference > 0:
         return [
@@ -1057,38 +1228,78 @@ def update_graph(n_intervals):
 @app.callback(Output('table_data', 'children'),
               [Input('update_value', 'n_intervals')])
 def update_graph(n_intervals):
-    if n_intervals == 0:
-        raise PreventUpdate
-    else:
-        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
-        chainlink_df = pd.read_csv('chainlink_data.csv', names=header_list)
-        chainlink_price = chainlink_df['Price'].tail(1).iloc[0]
-        chainlink_change_24h = chainlink_df['Change (24h) %'].tail(1).iloc[0]
-        chainlink_market_cap = chainlink_df['Market Cap.'].tail(1).iloc[0]
+    url = 'https://goldprice.org/cryptocurrency-price'
+    import_request = Request(url, headers={'User-Agent': 'Chrome/91.0.4472.77'})
+    web_page_data = urlopen(import_request).read()
+    df = pd.read_html(web_page_data)
 
-        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
-        bitcoin_df = pd.read_csv('bitcoin_data.csv', names=header_list)
-        bitcoin_price = bitcoin_df['Price'].tail(1).iloc[0]
-        bitcoin_change_24h = bitcoin_df['Change (24h) %'].tail(1).iloc[0]
-        bitcoin_market_cap = bitcoin_df['Market Cap.'].tail(1).iloc[0]
+    # Remove columns
+    df[0].drop(df[0].columns[[4, 5, 7]], axis=1, inplace=True)
 
-        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
-        ethereum_df = pd.read_csv('ethereum_data.csv', names=header_list)
-        ethereum_price = ethereum_df['Price'].tail(1).iloc[0]
-        ethereum_change_24h = ethereum_df['Change (24h) %'].tail(1).iloc[0]
-        ethereum_market_cap = ethereum_df['Market Cap.'].tail(1).iloc[0]
+    # Rename column
+    df[0].rename(columns={'Change (24h)': 'Change (24h) %'}, inplace=True)
 
-        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
-        binancecoin_df = pd.read_csv('binance_data.csv', names=header_list)
-        binancecoin_price = binancecoin_df['Price'].tail(1).iloc[0]
-        binancecoin_change_24h = binancecoin_df['Change (24h) %'].tail(1).iloc[0]
-        binancecoin_market_cap = binancecoin_df['Market Cap.'].tail(1).iloc[0]
+    # Remove % and $ symbols from columns
+    df[0]['Price'] = list(map(lambda x: x[1:], df[0]['Price'].values))
+    df[0]['Change (24h) %'] = list(map(lambda x: x[:-1], df[0]['Change (24h) %'].values))
+    df[0]['Market Cap.'] = list(map(lambda x: x[1:], df[0]['Market Cap.'].values))
 
-        header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
-        bitcoincash_df = pd.read_csv('bitcoincash_data.csv', names=header_list)
-        bitcoincash_price = bitcoincash_df['Price'].tail(1).iloc[0]
-        bitcoincash_change_24h = bitcoincash_df['Change (24h) %'].tail(1).iloc[0]
-        bitcoincash_market_cap = bitcoincash_df['Market Cap.'].tail(1).iloc[0]
+    # Remove commas from columns
+    df[0]['Price'] = df[0]['Price'].str.replace(',', '')
+    df[0]['Market Cap.'] = df[0]['Market Cap.'].str.replace(',', '')
+
+    # Change data type of column
+    df[0]['Price'] = df[0]['Price'].astype(float).round(2)
+    df[0]['Change (24h) %'] = df[0]['Change (24h) %'].astype(float)
+    df[0]['Market Cap.'] = df[0]['Market Cap.'].astype('int64')
+
+    # Change position of columns
+    df[0] = df[0][['Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']]
+
+    # time
+    now = datetime.now()
+    dt_string = now.strftime("%Y-%m-%d %H:%M:%S")
+
+    chainLink_row = df[0]
+    chainLink_rank1 = chainLink_row[chainLink_row['CryptoCurrency'] == 'Chainlink']['Rank'].iloc[0]
+    chainLink_currency1 = chainLink_row[chainLink_row['CryptoCurrency'] == 'Chainlink']['CryptoCurrency'].iloc[0]
+    chainLink_price1 = chainLink_row[chainLink_row['CryptoCurrency'] == 'Chainlink']['Price'].iloc[0]
+    chainLink_change1 = chainLink_row[chainLink_row['CryptoCurrency'] == 'Chainlink']['Change (24h) %'].iloc[0]
+    chainLink_market_cap1 = chainLink_row[chainLink_row['CryptoCurrency'] == 'Chainlink']['Market Cap.'].iloc[0]
+
+    with open('chainlink_data.csv', 'a', newline='\n') as f:
+        writer = csv.writer(f, delimiter=",")
+        writer.writerow([dt_string, chainLink_rank1, chainLink_currency1, chainLink_price1,
+                         chainLink_change1, chainLink_market_cap1])
+    header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
+    chainlink_df = pd.read_csv('chainlink_data.csv', names=header_list)
+    chainlink_price = chainlink_df['Price'].tail(1).iloc[0]
+    chainlink_change_24h = chainlink_df['Change (24h) %'].tail(1).iloc[0]
+    chainlink_market_cap = chainlink_df['Market Cap.'].tail(1).iloc[0]
+
+    header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
+    bitcoin_df = pd.read_csv('bitcoin_data.csv', names=header_list)
+    bitcoin_price = bitcoin_df['Price'].tail(1).iloc[0]
+    bitcoin_change_24h = bitcoin_df['Change (24h) %'].tail(1).iloc[0]
+    bitcoin_market_cap = bitcoin_df['Market Cap.'].tail(1).iloc[0]
+
+    header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
+    ethereum_df = pd.read_csv('ethereum_data.csv', names=header_list)
+    ethereum_price = ethereum_df['Price'].tail(1).iloc[0]
+    ethereum_change_24h = ethereum_df['Change (24h) %'].tail(1).iloc[0]
+    ethereum_market_cap = ethereum_df['Market Cap.'].tail(1).iloc[0]
+
+    header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
+    binancecoin_df = pd.read_csv('binance_data.csv', names=header_list)
+    binancecoin_price = binancecoin_df['Price'].tail(1).iloc[0]
+    binancecoin_change_24h = binancecoin_df['Change (24h) %'].tail(1).iloc[0]
+    binancecoin_market_cap = binancecoin_df['Market Cap.'].tail(1).iloc[0]
+
+    header_list = ['Time', 'Rank', 'CryptoCurrency', 'Price', 'Change (24h) %', 'Market Cap.']
+    bitcoincash_df = pd.read_csv('bitcoincash_data.csv', names=header_list)
+    bitcoincash_price = bitcoincash_df['Price'].tail(1).iloc[0]
+    bitcoincash_change_24h = bitcoincash_df['Change (24h) %'].tail(1).iloc[0]
+    bitcoincash_market_cap = bitcoincash_df['Market Cap.'].tail(1).iloc[0]
 
     return [
 

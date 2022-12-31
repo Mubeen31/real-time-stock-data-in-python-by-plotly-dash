@@ -4,13 +4,13 @@ import time
 import csv
 from datetime import datetime
 import ssl
-ssl._create_default_https_context = ssl._create_unverified_context
 
+ssl._create_default_https_context = ssl._create_unverified_context
 
 i = 1
 while i == 1:
     url = 'https://goldprice.org/cryptocurrency-price'
-    import_request = Request(url, headers = {'User-Agent': 'Chrome/91.0.4472.77'})
+    import_request = Request(url, headers={'User-Agent': 'Chrome/91.0.4472.77'})
     web_page_data = urlopen(import_request).read()
     df = pd.read_html(web_page_data)
     # print(df)
@@ -18,11 +18,11 @@ while i == 1:
     # print(df[0].columns)
 
     # Remove column
-    df[0].drop(df[0].columns[[4, 5, 7]], axis = 1, inplace = True)
+    df[0].drop(df[0].columns[[4, 5, 7]], axis=1, inplace=True)
     # print(df[0].columns)
 
     # Rename column
-    df[0].rename(columns = {'Change (24h)': 'Change (24h) %'}, inplace = True)
+    df[0].rename(columns={'Change (24h)': 'Change (24h) %'}, inplace=True)
 
     # Remove % and $ symbols from columns
     df[0]['Price'] = list(map(lambda x: x[1:], df[0]['Price'].values))
@@ -73,7 +73,8 @@ while i == 1:
 
     bitCoinCash_row = df[0]
     bitCoinCash_rank = bitCoinCash_row[bitCoinCash_row['CryptoCurrency'] == 'Bitcoin Cash']['Rank'].iloc[0]
-    bitCoinCash_currency = bitCoinCash_row[bitCoinCash_row['CryptoCurrency'] == 'Bitcoin Cash']['CryptoCurrency'].iloc[0]
+    bitCoinCash_currency = bitCoinCash_row[bitCoinCash_row['CryptoCurrency'] == 'Bitcoin Cash']['CryptoCurrency'].iloc[
+        0]
     bitCoinCash_price = bitCoinCash_row[bitCoinCash_row['CryptoCurrency'] == 'Bitcoin Cash']['Price'].iloc[0]
     bitCoinCash_change = bitCoinCash_row[bitCoinCash_row['CryptoCurrency'] == 'Bitcoin Cash']['Change (24h) %'].iloc[0]
     bitCoinCash_market_cap = bitCoinCash_row[bitCoinCash_row['CryptoCurrency'] == 'Bitcoin Cash']['Market Cap.'].iloc[0]
@@ -87,23 +88,26 @@ while i == 1:
     chainLink_market_cap = chainLink_row[chainLink_row['CryptoCurrency'] == 'Chainlink']['Market Cap.'].iloc[0]
 
     with open("bitcoin_data.csv", "a") as f:
-        writer = csv.writer(f, delimiter = ",")
+        writer = csv.writer(f, delimiter=",")
         writer.writerow([dt_string, bitcoin_rank, bitcoin_currency, bitcoin_price, bitcoin_change, bitcoin_market_cap])
-        # print(dt_string, bitcoin_rank, bitcoin_currency, bitcoin_price, bitcoin_change, bitcoin_market_cap)
+        print(dt_string, bitcoin_rank, bitcoin_currency, bitcoin_price, bitcoin_change, bitcoin_market_cap)
     with open("ethereum_data.csv", "a") as f:
-        writer = csv.writer(f, delimiter = ",")
-        writer.writerow([dt_string, ethereum_rank, ethereum_currency, ethereum_price, ethereum_change, ethereum_market_cap])
-        # print(dt_string, ethereum_rank, ethereum_currency, ethereum_price, ethereum_change, ethereum_market_cap)
+        writer = csv.writer(f, delimiter=",")
+        writer.writerow(
+            [dt_string, ethereum_rank, ethereum_currency, ethereum_price, ethereum_change, ethereum_market_cap])
+        print(dt_string, ethereum_rank, ethereum_currency, ethereum_price, ethereum_change, ethereum_market_cap)
     with open("binance_data.csv", "a") as f:
-        writer = csv.writer(f, delimiter = ",")
+        writer = csv.writer(f, delimiter=",")
         writer.writerow([dt_string, binance_rank, binance_currency, binance_price, binance_change, binance_market_cap])
-        # print(dt_string, binance_rank, binance_currency, binance_price, binance_change, binance_market_cap)
+        print(dt_string, binance_rank, binance_currency, binance_price, binance_change, binance_market_cap)
     with open("bitcoincash_data.csv", "a") as f:
-        writer = csv.writer(f, delimiter = ",")
-        writer.writerow([dt_string, bitCoinCash_rank, bitCoinCash_currency, bitCoinCash_price, bitCoinCash_change, bitCoinCash_market_cap])
-        print(dt_string, bitCoinCash_rank, bitCoinCash_currency, bitCoinCash_price, bitCoinCash_change, bitCoinCash_market_cap)
+        writer = csv.writer(f, delimiter=",")
+        writer.writerow([dt_string, bitCoinCash_rank, bitCoinCash_currency, bitCoinCash_price, bitCoinCash_change,
+                         bitCoinCash_market_cap])
+        print(dt_string, bitCoinCash_rank, bitCoinCash_currency, bitCoinCash_price, bitCoinCash_change,
+              bitCoinCash_market_cap)
     with open("chainlink_data.csv", "a") as f:
-        writer = csv.writer(f, delimiter = ",")
-        writer.writerow([dt_string, chainLink_rank, chainLink_currency, chainLink_price, chainLink_change, chainLink_market_cap])
-        # print(dt_string, chainLink_rank, chainLink_currency, chainLink_price, chainLink_change, chainLink_market_cap)
-
+        writer = csv.writer(f, delimiter=",")
+        writer.writerow(
+            [dt_string, chainLink_rank, chainLink_currency, chainLink_price, chainLink_change, chainLink_market_cap])
+        print(dt_string, chainLink_rank, chainLink_currency, chainLink_price, chainLink_change, chainLink_market_cap)
