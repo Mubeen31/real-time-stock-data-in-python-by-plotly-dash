@@ -64,11 +64,11 @@ while i == 1:
     ethereum_market_cap = ethereum_row[ethereum_row['CryptoCurrency'] == 'Ethereum']['Market Cap.'].iloc[0]
 
     binance_row = df[0]
-    binance_rank = binance_row[binance_row['CryptoCurrency'] == 'Binance Coin']['Rank'].iloc[0]
-    binance_currency = binance_row[binance_row['CryptoCurrency'] == 'Binance Coin']['CryptoCurrency'].iloc[0]
-    binance_price = binance_row[binance_row['CryptoCurrency'] == 'Binance Coin']['Price'].iloc[0]
-    binance_change = binance_row[binance_row['CryptoCurrency'] == 'Binance Coin']['Change (24h) %'].iloc[0]
-    binance_market_cap = binance_row[binance_row['CryptoCurrency'] == 'Binance Coin']['Market Cap.'].iloc[0]
+    binance_rank = binance_row[binance_row['CryptoCurrency'] == 'BNB']['Rank'].iloc[0]
+    binance_currency = binance_row[binance_row['CryptoCurrency'] == 'BNB']['CryptoCurrency'].iloc[0]
+    binance_price = binance_row[binance_row['CryptoCurrency'] == 'BNB']['Price'].iloc[0]
+    binance_change = binance_row[binance_row['CryptoCurrency'] == 'BNB']['Change (24h) %'].iloc[0]
+    binance_market_cap = binance_row[binance_row['CryptoCurrency'] == 'BNB']['Market Cap.'].iloc[0]
     # print(df[0].head(30))
 
     bitCoinCash_row = df[0]
